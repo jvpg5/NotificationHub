@@ -52,7 +52,7 @@
 
 | ID | Ticket | Pts | Depends on | Parallel-safe | Status |
 |---|---|---|---|---|---|
-| [T-009](tickets/EPIC-03-event-ingestion/T-009-create-event-dto-validation.md) | CreateEventDto + input validation | 3 | T-004, T-007 | yes (vs frontend) | todo |
+| [T-009](tickets/EPIC-03-event-ingestion/T-009-create-event-dto-validation.md) | CreateEventDto + input validation | 3 | T-004, T-007 | yes (vs frontend) | done |
 | [T-010](tickets/EPIC-03-event-ingestion/T-010-events-service-controller.md) | EventsService + EventsController | 3 | T-009 | yes (vs frontend) | todo |
 | [T-011](tickets/EPIC-03-event-ingestion/T-011-idempotency-guard.md) | IdempotencyGuard | 3 | T-010 | yes (vs frontend) | todo |
 | [T-012](tickets/EPIC-03-event-ingestion/T-012-events-e2e-tests.md) | Events e2e tests | 2 | T-011 | yes (vs frontend) | todo |
