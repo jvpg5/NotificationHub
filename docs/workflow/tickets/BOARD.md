@@ -110,7 +110,7 @@
 | ID | Ticket | Pts | Depends on | Parallel-safe | Status |
 |---|---|---|---|---|---|
 | [T-031](tickets/EPIC-10-final-documentation/T-031-readme.md) | README.md (run/test instructions) | 2 | T-028 | no | done |
-| [T-032](tickets/EPIC-10-final-documentation/T-032-development-log.md) | DEVELOPMENT_LOG.md finalization | 2 | T-031 | no | todo |
+| [T-032](tickets/EPIC-10-final-documentation/T-032-development-log.md) | DEVELOPMENT_LOG.md finalization | 2 | T-031 | no | done |
 
 ## Spec ↔ Epic Traceability
 
