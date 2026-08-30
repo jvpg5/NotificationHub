@@ -507,3 +507,20 @@ Created `CreateEventDto` class with class-validator decorators enforcing V1, V4,
 - Outcome: (to be filled after review)
 - Decision: accepted
 - Developer changes: none
+
+### 2026-08-30 — T-019: NotificationsController
+
+**What was done**: Created NotificationsController with GET /api/notifications (paginated, filterable by status/severity, ordered by createdAt desc, max 100 limit) and GET /api/notifications/:id (404 for unknown). Added findAll and findOne query methods to NotificationsService. Controller registered in NotificationsModule. 7 unit tests cover default params, max limit clamp, status filter, severity filter, combined filters, single by id, and 404.
+
+**Decisions**:
+1. **Query methods added to existing NotificationsService** — follows the EventsService pattern; the service already injects PrismaService; no new Prisma dependency in the controller.
+2. **No DTO for query params** — follows EventsController pattern (plain string query params for optional filters); status and severity are free text, not validated by the controller (Prisma where clause is a simple string match).
+3. **PrismaNotification return type (no mapping)** — the controller returns Prisma notification rows directly. Unlike EventsService (which maps `toResponse`), NotificationsService returns raw Prisma rows since the Notification response shape matches the Prisma model columns exactly per the API contract.
+
+**AI interactions**:
+- Tool: opencode agents (orchestrator/DeepSeek V4 Pro planned; implementer executed; reviewer reviewed)
+- Objective: implement NotificationsController per T-019
+- Prompt (summary): execute plan.md literally — add service methods, create controller + spec, register module, validate gates
+- Outcome: (to be filled after review)
+- Decision: accepted
+- Developer changes: (none)
