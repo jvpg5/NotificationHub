@@ -71,7 +71,7 @@
 | ID | Ticket | Pts | Depends on | Parallel-safe | Status |
 |---|---|---|---|---|---|
 | [T-017](tickets/EPIC-05-notifications/T-017-notification-provider-mock.md) | NotificationProvider + MockWhatsAppProvider | 2 | T-004 | yes (vs frontend) | done |
-| [T-018](tickets/EPIC-05-notifications/T-018-notifications-service.md) | NotificationsService (lifecycle) | 3 | T-016, T-017 | yes (vs frontend) | todo |
+| [T-018](tickets/EPIC-05-notifications/T-018-notifications-service.md) | NotificationsService (lifecycle) | 3 | T-016, T-017 | yes (vs frontend) | done |
 | [T-019](tickets/EPIC-05-notifications/T-019-notifications-controller.md) | NotificationsController | 2 | T-018 | yes (vs frontend) | todo |
 | [T-020](tickets/EPIC-05-notifications/T-020-pipeline-e2e-tests.md) | Pipeline e2e tests | 3 | T-018, T-019 | yes (vs frontend) | todo |
 
