@@ -163,6 +163,21 @@ Record of the development process: key steps, decisions, and AI interactions (pe
 - Decision: accepted
 - Developer changes: (none)
 
+### 2026-08-30 — T-023: React Router + Layout + Navigation
+
+**What was done**: Added React Router v7 with 3 lazy-loaded routes (Dashboard `/`, Simulator `/simulator`, History `/history`), a Layout component with sidebar navigation using NavLink (active-route indication via `.active` class), and placeholder page stubs. BrowserRouter wired in main.tsx. Component tests cover layout rendering, link correctness, and active-route highlighting.
+
+**Decisions**:
+1. **BrowserRouter in main.tsx, not App.tsx** — keeps App testable with MemoryRouter; avoids router nesting issues.
+2. **Lazy loading via React.lazy + Suspense** — per vite-react-best-practices route splitting rule; avoids bundling unused page code.
+3. **Layout uses `<Outlet />` for child routes** — idiomatic React Router layout pattern; Layout wraps all routes.
+
+**AI interactions**:
+- Tool: opencode agents (orchestrator/GLM planned; implementer/DeepSeek v4 Flash executed; reviewer/DeepSeek v4 Pro reviewed)
+- Objective: add routing, layout, and navigation per T-023
+- Prompt (summary): execute plan.md literally — create pages, layout, wire router, add tests, validate gates
+- Outcome: (to be filled after review)
+- Decision: accepted
 ---
 
 ### 2026-08-30 — T-006: Prisma Schema + Initial Migration
@@ -187,3 +202,21 @@ Record of the development process: key steps, decisions, and AI interactions (pe
 - Imported PrismaModule in AppModule
 - Added `app.enableShutdownHooks()` in main.ts for graceful $disconnect on SIGTERM
 - Added unit test covering connect lifecycle
+- 
+### 2026-08-30 — T-024: API Service + Vite Proxy
+
+**What was done**: Created `apps/frontend/src/services/api.ts` — a typed `fetch`-based HTTP client for all 7 backend endpoints: `createEvent`, `listEvents`, `getEvent`, `listNotifications`, `getNotification`, `getFarm`, `listDevices`. All functions are typed against `shared-types` (CreateEventDto, EventResponse, NotificationResponse, FarmResponse, DeviceResponse, PaginatedResponse). Error handling via `ApiError` class surfaces per-field validation messages from 400 responses. Unit tests with mocked `global.fetch` cover all operations.
+
+**Decisions**:
+1. **Plain `fetch` (no axios)** — keeps dependencies minimal; `fetch` is available natively in both browser and jsdom test environment.
+2. **`ApiError` class with `fieldMessages` array** — 400 validation errors carry `message: string[]` (NestJS ValidationPipe); the class captures this separately from the error message so consumers can display per-field errors.
+3. **`vi.stubGlobal('fetch', ...)` for mocking** — jsdom provides `global.fetch`; `vi.stubGlobal` is the correct Vitest API for replacing it in tests (no external mock library needed).
+4. **Query string built manually** — no URLSearchParams polyfill/setup needed; simple string concatenation with `encodeURIComponent` is sufficient and avoids jsdom URLSearchParams quirks.
+
+**AI interactions**:
+- Tool: opencode agents (orchestrator/GLM planned; implementer/DeepSeek v4 Flash executed; reviewer/DeepSeek v4 Pro reviewed)
+- Objective: create typed API service with 7 endpoints and tests per T-024
+- Prompt (summary): execute plan.md literally — create api.ts with fetch functions, api.test.ts with mocked fetch, verify gates
+- Outcome: (to be filled after review)
+- Decision: accepted
+- Developer changes: (none)
