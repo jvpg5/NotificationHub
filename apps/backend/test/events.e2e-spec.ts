@@ -35,7 +35,6 @@ import { execSync } from 'child_process';
 import { AppModule } from '../src/app.module';
 import { PrismaService } from '../src/prisma/prisma.service';
 import { PrismaLibSql } from '@prisma/adapter-libsql';
-import { EventType, EquipmentStatus } from 'shared-types';
 
 const TEST_DB_PATH = path.resolve(__dirname, '..', 'prisma', 'test.db');
 const TEST_DB_URL = `file:${TEST_DB_PATH}`;

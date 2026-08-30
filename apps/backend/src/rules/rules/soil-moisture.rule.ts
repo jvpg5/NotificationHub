@@ -5,7 +5,7 @@ export class SoilMoistureRule implements Rule {
   id = 'SOIL_MOISTURE_LOW';
   eventType = EventType.SOIL_MOISTURE;
 
-  evaluate(event: CreateEventDto, context: RuleEvaluationContext): RuleResult {
+  evaluate(event: CreateEventDto, _context: RuleEvaluationContext): RuleResult {
     const value = event.value as number;
     if (value < 20) {
       return {

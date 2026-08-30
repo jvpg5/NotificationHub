@@ -5,7 +5,7 @@ export class EquipmentStatusRule implements Rule {
   id = 'EQUIPMENT_FAILURE';
   eventType = EventType.EQUIPMENT_STATUS;
 
-  evaluate(event: CreateEventDto, context: RuleEvaluationContext): RuleResult {
+  evaluate(event: CreateEventDto, _context: RuleEvaluationContext): RuleResult {
     if (event.value === 'FAILURE') {
       return {
         triggered: true,

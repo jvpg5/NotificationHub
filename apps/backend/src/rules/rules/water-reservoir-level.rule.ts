@@ -5,7 +5,7 @@ export class WaterReservoirLevelRule implements Rule {
   id = 'WATER_RESERVOIR_LOW';
   eventType = EventType.WATER_RESERVOIR_LEVEL;
 
-  evaluate(event: CreateEventDto, context: RuleEvaluationContext): RuleResult {
+  evaluate(event: CreateEventDto, _context: RuleEvaluationContext): RuleResult {
     const value = event.value as number;
     if (value < 15) {
       return {

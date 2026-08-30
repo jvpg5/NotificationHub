@@ -5,7 +5,7 @@ export class SiloLevelRule implements Rule {
   id = 'SILO_LEVEL_LOW';
   eventType = EventType.SILO_LEVEL;
 
-  evaluate(event: CreateEventDto, context: RuleEvaluationContext): RuleResult {
+  evaluate(event: CreateEventDto, _context: RuleEvaluationContext): RuleResult {
     const value = event.value as number;
     if (value < 15) {
       return {
