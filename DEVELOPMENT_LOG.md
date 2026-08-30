@@ -119,7 +119,7 @@ Record of the development process: key steps, decisions, and AI interactions (pe
 2. **Vitest `globals: false`** — explicit imports from `vitest` keep the test surface explicit and match the backend's Jest pattern (no magic globals).
 3. **React Router installed now** — routes wired in T-023; library present so later tickets don't need to touch `package.json`.
 4. **Flat ESLint config** — same pattern as `apps/backend/eslint.config.mjs` for consistency across the monorepo.
-5. **`tsconfig.node.json` via project references** — keeps Node types out of the main `tsconfig.json` (src-only), preventing accidental Node API usage in browser code.
+5. **`tsconfig.node.json` scope separation via `tsconfig.node.json`** — keeps Node types out of the main `tsconfig.json` (src-only), preventing accidental Node API usage in browser code.
 
 **AI interactions**:
 - Tool: opencode agents (orchestrator/GLM planned; implementer/DeepSeek v4 Flash executed; reviewer/DeepSeek v4 Pro reviewed)
