@@ -9,6 +9,23 @@ How this project uses GitHub Stacked PRs to keep development flowing without wai
 - Stacks are **strictly linear** — GitHub does not support tree-shaped stacks (one PR with two children). Parallel work uses multiple independent stacks (below).
 - Merges are **squash, bottom-up**: each merged ticket becomes exactly one clean commit on `main`. `gh stack` handles the `rebase --onto` mechanics automatically.
 
+## Fork Workflow: Where PRs Live
+
+This repository is a **fork**. Two remotes, two roles:
+
+| Remote | Repository | Role |
+|---|---|---|
+| `origin` | `jvpg5/NotificationHub` | The fork. All branches, PRs, and squash merges happen here. |
+| `upstream` | `cogito-lab/NotificationHub` | The original. Reference only: never a push or PR target. |
+
+Rules:
+
+1. **All PRs target the fork's `main`.** Never open a PR on the original repository.
+2. **Every `gh pr` command must pass `--repo jvpg5/NotificationHub`** (`create`, `list`, `view`, `diff`, `comment`). Reason: when `--repo` is omitted, the gh CLI resolves the PR repository by preferring the remote named `upstream`, so commands silently land on the original repo. This happened during T-001: the PR was opened on `cogito-lab/NotificationHub` by mistake, closed, and recreated on the fork.
+3. **Branches are pushed only to `origin`** (the fork). Never push to `upstream`.
+4. When re-cloning this project, either name the original's remote anything other than `upstream` (e.g. `cogito-lab`) so gh's default resolution picks the fork, or follow rule 2 strictly.
+5. `gh stack` operations act on `origin` (the fork). Single-layer stacks need no `gh stack link`; multi-layer stacks are pushed and registered with `gh stack submit`.
+
 ## Setup (once per machine)
 
 ```bash
@@ -25,6 +42,7 @@ gh auth login                          # if not already authenticated
 | PR description | Follow `.claude/skills/pr-description/SKILL.md`; link the ticket file and spec |
 | Commits | Conventional commits (`feat:`, `fix:`, `test:`, `docs:`, `chore:`, `refactor:`) |
 | Merge method | Squash |
+| PR target repo | The fork: `origin` = `jvpg5/NotificationHub`. Never the original (`upstream`). See [Fork Workflow](#fork-workflow-where-prs-live) |
 | History | Linear — required by stacked PRs; no merge commits on stack branches |
 
 ## Stack Lifecycle (single stack)

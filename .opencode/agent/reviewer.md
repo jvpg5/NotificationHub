@@ -49,7 +49,7 @@ You verify implementations against their plans. You never fix code — you judge
    - Per-criterion table: criterion | status | evidence
    - Findings (numbered): `file:line`, issue, why it matters, suggested fix
    - Gate results
-9. **Post** the verdict as a comment on the PR: `gh pr comment {number} --body-file {session}/review.md`.
+9. **Post** the verdict as a comment on the PR **on the fork**: `gh pr comment {number} --repo jvpg5/NotificationHub --body-file {session}/review.md`. PRs live on the fork (`jvpg5/NotificationHub`); never comment on or query the original repo (`cogito-lab/NotificationHub`) — gh targets the `upstream` remote when `--repo` is omitted, so always pass `--repo jvpg5/NotificationHub` to any `gh pr` command (view/list/diff/comment).
 
 If writing `review.md` is blocked, return the full review text in your result instead and note the failure to post.
 

@@ -67,3 +67,26 @@ Record of the development process: key steps, decisions, and AI interactions (pe
 - Outcome: 3 agents + 1 command with role-scoped permissions; pipeline documented in the workflow docs.
 - Decision: accepted — with developer adjustments: implementer model from `opencode-go` (not openrouter); reviewer changed to DeepSeek v4 Pro (`opencode-go/deepseek-v4-pro`); merge is manual (option a).
 - Developer changes: chose manual merge gate; corrected model IDs/providers.
+---
+
+### 2026-08-30 — T-001: Monorepo Workspace + Root Configs
+
+**What was done**: Created the pnpm monorepo skeleton: `pnpm-workspace.yaml` (`apps/*`, `packages/*`), root `package.json` (private; scripts `dev`, `dev:backend`, `dev:frontend`, `test`, `lint`, `typecheck` via workspace filters), `tsconfig.base.json` (strict, ES2022, shared-only options), `.env.example` (`DATABASE_URL`, `PORT`, `CORS_ORIGIN` with documented defaults), and extended `.gitignore` (node_modules, dist, coverage, .env, `**/prisma/dev.db` + journal; kept `.tmp`). `pnpm install` exits 0 on the empty workspace.
+
+**Decisions**:
+
+1. **Root scripts use `--filter backend` / `--filter frontend` / `-r`** — package names fixed as `backend`, `frontend`, `shared-types` to match the acceptance commands of T-002/T-003/T-004. Scripts are intentionally inert until those tickets land; T-005 wires and verifies them end-to-end.
+2. **`tsconfig.base.json` holds only universally shared options** (strict family, ES2022, interop, skipLibCheck, isolatedModules); `module`/`moduleResolution` stay per-app because NestJS (CommonJS) and Vite (ESNext/bundler) differ.
+3. **`.gitignore` uses `**/prisma/dev.db` instead of `prisma/dev.db`** — a plain pattern is root-anchored and would miss the real DB location `apps/backend/prisma/dev.db` (per the architecture layout); added `**/prisma/dev.db-journal` for SQLite write sidecar files.
+4. **No `packageManager` pin** — out of ticket scope. Noted: docs list pnpm ^9.x while the dev machine runs 10.33.4; no impact on this ticket (both use lockfile format v9). Flagged for a later docs alignment.
+5. **Only `pnpm install` is a gate** — per ticket validation; lint/typecheck/test have nothing to run yet (no apps, no code).
+6. **PRs live on the fork, never on the original repo.** The first `gh pr create` omitted `--repo`, so the gh CLI resolved the PR base to the remote named `upstream` (`cogito-lab/NotificationHub`, the original repo) and opened the PR there by mistake. The branch had already been pushed to the correct place (`origin`, the fork `jvpg5/NotificationHub`); only the PR went astray. The developer closed the misdirected PR and the pipeline recreated it on the fork with `--repo jvpg5/NotificationHub`. Root cause fixed in the same PR: every `gh pr` command in the agent definitions (orchestrator, implementer, reviewer) and in `docs/workflow/pr-stacking.md` (§ Fork Workflow) now passes `--repo` explicitly.
+
+**AI interactions**:
+
+- Tool: opencode agents (orchestrator: GLM-5.3 planned; implementer: DeepSeek v4 Flash executed; reviewer: DeepSeek v4 Pro reviewed)
+- Objective: run the T-001 pipeline (plan → implement → review → PR)
+- Prompt (summary): execute plan.md literally for T-001 (monorepo workspace + root configs), then verify every acceptance criterion and post the review verdict on the PR
+- Outcome: workspace + root configs created; `pnpm install` exits 0; PR opened for review
+- Decision: accepted
+- Developer changes: closed the misdirected PR on the original repo (cogito-lab/NotificationHub) and directed the pipeline to create all PRs on the fork (jvpg5/NotificationHub); see decision 6 and docs/workflow/pr-stacking.md.

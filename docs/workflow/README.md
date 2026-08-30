@@ -73,6 +73,7 @@ Create a session folder:
 
 - Update any docs affected by the change (same PR).
 - Append a `DEVELOPMENT_LOG.md` entry (see below).
+- Create the PR **on the fork**: `gh pr create ... --repo jvpg5/NotificationHub` (never on the original repo) — see [`pr-stacking.md` § Fork Workflow](pr-stacking.md#fork-workflow-where-prs-live).
 - Stack the PR: [`pr-stacking.md`](pr-stacking.md).
 - After merge: update BOARD status to `done`, sync remaining stacks (`gh stack sync`).
 
