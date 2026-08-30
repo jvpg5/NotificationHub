@@ -162,3 +162,20 @@ Record of the development process: key steps, decisions, and AI interactions (pe
 - Outcome: (to be filled after review)
 - Decision: accepted
 - Developer changes: (none)
+
+### 2026-08-30 — T-023: React Router + Layout + Navigation
+
+**What was done**: Added React Router v7 with 3 lazy-loaded routes (Dashboard `/`, Simulator `/simulator`, History `/history`), a Layout component with sidebar navigation using NavLink (active-route indication via `.active` class), and placeholder page stubs. BrowserRouter wired in main.tsx. Component tests cover layout rendering, link correctness, and active-route highlighting.
+
+**Decisions**:
+1. **BrowserRouter in main.tsx, not App.tsx** — keeps App testable with MemoryRouter; avoids router nesting issues.
+2. **Lazy loading via React.lazy + Suspense** — per vite-react-best-practices route splitting rule; avoids bundling unused page code.
+3. **Layout uses `<Outlet />` for child routes** — idiomatic React Router layout pattern; Layout wraps all routes.
+
+**AI interactions**:
+- Tool: opencode agents (orchestrator/GLM planned; implementer/DeepSeek v4 Flash executed; reviewer/DeepSeek v4 Pro reviewed)
+- Objective: add routing, layout, and navigation per T-023
+- Prompt (summary): execute plan.md literally — create pages, layout, wire router, add tests, validate gates
+- Outcome: (to be filled after review)
+- Decision: accepted
+- Developer changes: (none)
