@@ -46,7 +46,7 @@
 |---|---|---|---|---|---|
 | [T-006](tickets/EPIC-02-data-persistence/T-006-prisma-schema-migration.md) | Prisma schema + initial migration | 3 | T-002 | yes (vs frontend) | done |
 | [T-007](tickets/EPIC-02-data-persistence/T-007-prisma-module-service.md) | PrismaModule + PrismaService | 2 | T-006 | yes (vs frontend) | done |
-| [T-008](tickets/EPIC-02-data-persistence/T-008-seed-script.md) | Seed script (farm, devices, demo events) | 3 | T-006 | yes (vs frontend) | todo |
+| [T-008](tickets/EPIC-02-data-persistence/T-008-seed-script.md) | Seed script (farm, devices, demo events) | 3 | T-006 | yes (vs frontend) | done |
 
 ## EPIC-03 — Event Ingestion
 
