@@ -70,8 +70,8 @@
 
 | ID | Ticket | Pts | Depends on | Parallel-safe | Status |
 |---|---|---|---|---|---|
-| [T-017](tickets/EPIC-05-notifications/T-017-notification-provider-mock.md) | NotificationProvider + MockWhatsAppProvider | 2 | T-004 | yes (vs frontend) | todo |
-| [T-018](tickets/EPIC-05-notifications/T-018-notifications-service.md) | NotificationsService (lifecycle) | 3 | T-016, T-017 | yes (vs frontend) | todo |
+| [T-017](tickets/EPIC-05-notifications/T-017-notification-provider-mock.md) | NotificationProvider + MockWhatsAppProvider | 2 | T-004 | yes (vs frontend) | done |
+| [T-018](tickets/EPIC-05-notifications/T-018-notifications-service.md) | NotificationsService (lifecycle) | 3 | T-016, T-017 | yes (vs frontend) | done |
 | [T-019](tickets/EPIC-05-notifications/T-019-notifications-controller.md) | NotificationsController | 2 | T-018 | yes (vs frontend) | todo |
 | [T-020](tickets/EPIC-05-notifications/T-020-pipeline-e2e-tests.md) | Pipeline e2e tests | 3 | T-018, T-019 | yes (vs frontend) | todo |
 
@@ -95,7 +95,7 @@
 | ID | Ticket | Pts | Depends on | Parallel-safe | Status |
 |---|---|---|---|---|---|
 | [T-026](tickets/EPIC-08-frontend-pages/T-026-dashboard-page.md) | Dashboard page | 5 | T-025, T-021, T-022 | no (integration) | done |
-| [T-027](tickets/EPIC-08-frontend-pages/T-027-simulator-page.md) | Simulator page | 5 | T-025 | yes (vs T-026/T-028) | todo |
+| [T-027](tickets/EPIC-08-frontend-pages/T-027-simulator-page.md) | Simulator page | 5 | T-025 | yes (vs T-026/T-028) | done |
 | [T-028](tickets/EPIC-08-frontend-pages/T-028-history-page.md) | History page | 3 | T-025 | yes (vs T-026/T-027) | todo |
 
 ## EPIC-09 — Quality & Coverage

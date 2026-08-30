@@ -323,7 +323,7 @@ Record of the development process: key steps, decisions, and AI interactions (pe
 - Decision: accepted — no deviations
 - Developer changes: none
 
-### 2026-08-30 - T-009: CreateEventDto + Input Validation 
+### 2026-08-30 - T-009: CreateEventDto + Input Validation
 
 ### Summary
 Created `CreateEventDto` class with class-validator decorators enforcing V1, V4, V5, V6, V7, V8 from business-rules.md §2. Includes two custom validators: `IsValidEventValue` for per-type value range/type checks, and `IsValidEventUnit` for per-type unit consistency. Global `ValidationPipe` with whitelist+transform already present in main.ts.
@@ -411,6 +411,23 @@ Created `CreateEventDto` class with class-validator decorators enforcing V1, V4,
 - Decision: accepted
 - Developer changes: none
 
+### 2026-08-30 — T-027: Simulator Page
+
+**What was done**: Replaced stub Simulator route with full SimulatorForm component. Features: device selector with auto-derived type/unit, auto-generated eventId with override, numeric/select value input depending on device type, timestamp defaulting to now, 7 preset buttons for demo events, client-side validation mirroring server rules, and four-state outcome feedback (alert generated, no alert, duplicate, invalid). Added 13 component test cases and 1 route-level smoke test.
+
+**Decisions**:
+1. **Outcome detection via notification polling** — after a successful POST, the form waits 500ms then queries `listNotifications()` to find a matching notification. The four outcomes are: (a) `duplicate: true` flag in createEvent response → duplicate; (b) ApiError 400 → invalid with field errors; (c) notification found → alert generated with message; (d) no notification → no alert. This avoids changing the backend response contract.
+2. **Client-side validation before submission** — validates eventId (non-empty), value (range for sensors, enum for equipment), and timestamp (non-empty) before calling the API, reducing unnecessary server round-trips. Server errors are still displayed if they occur.
+3. **Presets fill without submitting** — per NFR-2, clicking a preset loads the form fields but does not trigger submission, allowing the user to review before submitting.
+4. **Form stays populated after submit** — after any submission (success or error), only eventId and timestamp get refreshed; the value and device selection persist so the user can tweak and resubmit quickly.
+
+**AI interactions**:
+- Tool: Claude (opencode)
+- Objective: Plan and delegate T-027 implementation
+- Prompt (summary): Full pipeline orchestration for Simulator page ticket — planner produced context.md and plan.md, implementer executed, reviewer verified
+- Outcome: Implementation completed with all gates passing
+- Decision: accepted
+
 ### 2026-08-30 — T-016: RulesService Listener
 
 **What was done**: Created RulesModule with RulesRegistry + all 6 rules registered, and RulesService as an `@OnEvent('event.received')` listener. The listener resolves the farm name, constructs a rule-compatible DTO from the Prisma Event, queries RulesRegistry for matching rules, evaluates each with FR-9 error containment, and emits `notification.generated` when triggered (at most one per event, FR-7).
@@ -428,7 +445,7 @@ Created `CreateEventDto` class with class-validator decorators enforcing V1, V4,
 - Decision: accepted — implementation delegated
 - Developer changes: none
 
-### T-012 — Events e2e Tests (`2026-08-30`)
+### 2026-08-30 - T-012 — Events e2e Tests 
 
 - **What**: Supertest-based e2e tests for events API
 - **Why**: Exercise SPEC-001 AC-1 through AC-6 against a real SQLite DB
@@ -446,3 +463,32 @@ Created `CreateEventDto` class with class-validator decorators enforcing V1, V4,
     - AC-6: Unknown event id → 404
   - Added `test:e2e` script to backend package.json
 - **Key decisions**: Used `prisma db push` for test DB setup; single farm + 6 devices seed mirrors production seed; all tests in one suite for isolation guarantees
+### 2026-08-30 — T-017: NotificationProvider + MockWhatsAppProvider
+
+**What was done**: Created `NotificationProvider` interface (`send(payload) → SendResult`), `MockWhatsAppProvider` (logs recipient + message, returns success), `FailingWhatsAppProvider` (test fake returning failure), and `NotificationProvidersModule` exporting the provider under the `NOTIFICATION_PROVIDER` DI token. Wired into `AppModule`.
+
+**Decisions**: `NotificationPayload` carries `recipient` (farm phone) and `message` (notification text) — keeps the interface minimal and swappable per NFR-1. `FailingWhatsAppProvider` ships alongside the mock so future tests (T-020) can exercise the failure path without extra tickets.
+
+**AI interactions**:
+- Tool: Claude (opencode)
+- Objective: Implement T-017 — NotificationProvider abstraction
+- Prompt (summary): Execute plan.md for T-017: create interface, mock provider, failing fake, module, tests, wire into AppModule
+- Outcome: All files created, tests pass (3 tests), lint + typecheck clean
+- Decision: accepted
+- Developer changes: none
+
+### 2026-08-30 — T-018: NotificationsService (Lifecycle)
+
+**What was done**: Created `NotificationsService` — an `@OnEvent('notification.generated')` listener that persists a PENDING notification, sends via `NotificationProvider` (resolving farm phone as recipient), updates to `SENT`/`FAILED` with `sentAt`/`failureReason`, and emits `notification.sent`. Registered via `NotificationsModule` and wired into `AppModule`. 4 unit tests cover success, provider failure (result.ok=false), provider throw (FR-9 containment), and PENDING-before-send ordering.
+
+**Decisions**:
+1. **Farm phone lookup for recipient** — the `NotificationPayload.recipient` is resolved by looking up the farm via `event.farmId`. The RulesService already does this for `farmName`; we do it for `phone`. Falls back to `'unknown'` if farm not found.
+2. **eventValue stored as Float? in Prisma** — numeric values go into the `Float` column; string values (EQUIPMENT_STATUS) are `null`. The Prisma model's `eventValue` field is `Float?`, so string values can't be stored there. This matches the existing model design from T-006.
+
+**AI interactions**:
+- Tool: opencode agents (orchestrator/DeepSeek V4 Pro planned; implementer/DeepSeek V4 Flash executed; reviewer/DeepSeek V4 Pro reviewed)
+- Objective: implement NotificationsService lifecycle per T-018
+- Prompt (summary): execute plan.md literally — create service, module, tests, wire into AppModule
+- Outcome: (to be filled after review)
+- Decision: accepted
+- Developer changes: none
