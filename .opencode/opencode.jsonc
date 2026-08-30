@@ -1,0 +1,26 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "fallback": {
+    "enabled": true
+  },
+  "agents": {
+    "implementer": {
+      "model": [
+        "openrouter/deepseek/deepseek-v4-flash",
+        "opencode-go/deepseek-v4-flash"
+      ]
+    },
+    "orchestrator": {
+      "model": [
+        "openrouter/deepseek/deepseek-v4-pro",
+        "opencode-go/deepseek-v4-pro"
+      ]
+    },
+    "reviewer": {
+      "model": [
+        "openrouter/glm/glm-5.2",
+        "opencode-go/glm-5.2"
+      ]
+    }
+  }
+} 

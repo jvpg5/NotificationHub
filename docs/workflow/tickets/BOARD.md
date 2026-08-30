@@ -34,7 +34,7 @@
 
 | ID | Ticket | Pts | Depends on | Parallel-safe | Status |
 |---|---|---|---|---|---|
-| [T-001](tickets/EPIC-01-monorepo-foundation/T-001-monorepo-workspace.md) | Monorepo workspace + root configs | 2 | — | no | in-progress |
+| [T-001](tickets/EPIC-01-monorepo-foundation/T-001-monorepo-workspace.md) | Monorepo workspace + root configs | 2 | — | no | done |
 | [T-002](tickets/EPIC-01-monorepo-foundation/T-002-backend-scaffold.md) | Backend scaffold (NestJS) | 3 | T-001 | yes (vs T-003/T-004) | todo |
 | [T-003](tickets/EPIC-01-monorepo-foundation/T-003-frontend-scaffold.md) | Frontend scaffold (Vite + React) | 3 | T-001 | yes (vs T-002/T-004) | todo |
 | [T-004](tickets/EPIC-01-monorepo-foundation/T-004-shared-types-package.md) | `shared-types` package | 2 | T-001 | yes (vs T-002/T-003) | todo |
