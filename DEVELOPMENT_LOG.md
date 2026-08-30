@@ -473,6 +473,19 @@ Created `CreateEventDto` class with class-validator decorators enforcing V1, V4,
 - Tool: opencode agents (orchestrator/DeepSeek V4 Pro planned; implementer/DeepSeek V4 Pro executed; reviewer/DeepSeek V4 Pro reviewed)
 - Objective: implement the History page per T-028 and SPEC-007
 - Prompt (summary): execute plan.md literally — create useHistory hook, replace History stub with full table/filters/pagination, write component tests, validate gates
+
+### 2026-08-30 — T-018: NotificationsService (Lifecycle)
+
+**What was done**: Created `NotificationsService` — an `@OnEvent('notification.generated')` listener that persists a PENDING notification, sends via `NotificationProvider` (resolving farm phone as recipient), updates to `SENT`/`FAILED` with `sentAt`/`failureReason`, and emits `notification.sent`. Registered via `NotificationsModule` and wired into `AppModule`. 4 unit tests cover success, provider failure (result.ok=false), provider throw (FR-9 containment), and PENDING-before-send ordering.
+
+**Decisions**:
+1. **Farm phone lookup for recipient** — the `NotificationPayload.recipient` is resolved by looking up the farm via `event.farmId`. The RulesService already does this for `farmName`; we do it for `phone`. Falls back to `'unknown'` if farm not found.
+2. **eventValue stored as Float? in Prisma** — numeric values go into the `Float` column; string values (EQUIPMENT_STATUS) are `null`. The Prisma model's `eventValue` field is `Float?`, so string values can't be stored there. This matches the existing model design from T-006.
+
+**AI interactions**:
+- Tool: opencode agents (orchestrator/DeepSeek V4 Pro planned; implementer/DeepSeek V4 Flash executed; reviewer/DeepSeek V4 Pro reviewed)
+- Objective: implement NotificationsService lifecycle per T-018
+- Prompt (summary): execute plan.md literally — create service, module, tests, wire into AppModule
 - Outcome: (to be filled after review)
 - Decision: accepted
 - Developer changes: none
