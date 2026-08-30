@@ -90,3 +90,22 @@ Record of the development process: key steps, decisions, and AI interactions (pe
 - Outcome: workspace + root configs created; `pnpm install` exits 0; PR opened for review
 - Decision: accepted
 - Developer changes: closed the misdirected PR on the original repo (cogito-lab/NotificationHub) and directed the pipeline to create all PRs on the fork (jvpg5/NotificationHub); see decision 6 and docs/workflow/pr-stacking.md.
+
+### 2026-08-30 — T-002: Backend Scaffold (NestJS)
+
+**What was done**: Created `apps/backend` — NestJS ^11 application with global `/api` prefix, CORS for `http://localhost:5173`, `ValidationPipe` wired, and a `GET /api/health` endpoint. Jest configured with one passing spec.
+
+**Decisions**:
+1. **Manual scaffold (no `nest new`)** — avoids global `@nestjs/cli` dependency; files created by hand matching NestJS conventions.
+2. **`ValidationPipe` wired with whitelist/transform/forbidNonWhitelisted** — ready for DTO-based validation in future tickets (T-009 and beyond); follows `nestjs-security-best-practices`.
+3. **CORS reads `CORS_ORIGIN` from env with `http://localhost:5173` default** — matches `.env.example`.
+4. **Jest configured in `package.json`** (not separate `jest.config.ts`) — fewer files, standard NestJS pattern.
+5. **ESLint targets `src/` and `test/`** — no test directory exists yet but the glob is future-proof.
+
+**AI interactions**:
+- Tool: opencode agents (orchestrator/GLM planned; implementer/DeepSeek v4 Flash executed; reviewer/DeepSeek v4 Pro reviewed)
+- Objective: scaffold the backend app per T-002 acceptance criteria
+- Prompt (summary): execute plan.md literally — create NestJS app with health endpoint, CORS, validation pipe
+- Outcome: (to be filled after review)
+- Decision: accepted
+- Developer changes: (none)
