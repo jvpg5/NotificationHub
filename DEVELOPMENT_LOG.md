@@ -317,3 +317,21 @@ Created `CreateEventDto` class with class-validator decorators enforcing V1, V4,
 - `pnpm --filter backend test -- --testPathPattern=events` — 9/9 passing
 - `pnpm --filter backend lint` — clean
 - `pnpm --filter backend typecheck` — clean
+
+### 2026-08-30 — T-014: Threshold Rules (5 Sensor Rules)
+
+**What was done**: Created 5 threshold rule classes (AirTemperatureRule, AirHumidityRule, SoilMoistureRule, WaterReservoirLevelRule, SiloLevelRule) and 20 unit tests covering trigger, boundary, and normal values per rule. Updated the Rule interface to accept RuleEvaluationContext (farmName) so pure rules can render complete messages with farm names.
+
+**Decisions**:
+1. **Option C: RuleEvaluationContext** — T-013's evaluate() only received CreateEventDto (no farmName). Added a second parameter `RuleEvaluationContext { farmName }` so rules stay pure (no I/O) while rendering complete messages. T-016 will be responsible for looking up and passing farmName.
+2. **Plain classes, no NestJS injectables** — rules are stateless pure functions, no @Injectable decorator needed. T-016 will instantiate and register them.
+3. **Number.prototype.toString() for value formatting** — produces "24" for whole numbers, "38.5" for decimals, matching the dot-separator requirement and scenario expectations exactly.
+4. **Strict comparisons** — `>` for high thresholds, `<` for low thresholds. Boundary values (35.0, 30.0, 20.0, 15.0, 15.0) do NOT trigger per business-rules.md §4.
+
+**AI interactions**:
+- Tool: opencode agents (orchestrator/DeepSeek v4 Pro planned; implementer/DeepSeek v4 Flash executed; reviewer/DeepSeek v4 Pro reviewed)
+- Objective: implement 5 threshold rules and their unit tests per T-014
+- Prompt (summary): execute plan.md literally — update interface, create 5 rules with strict comparisons and message templates, add 20 tests, validate gates
+- Outcome: (to be filled after review)
+- Decision: accepted
+- Developer changes: (none)
