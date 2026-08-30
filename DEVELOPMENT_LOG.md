@@ -323,7 +323,7 @@ Record of the development process: key steps, decisions, and AI interactions (pe
 - Decision: accepted — no deviations
 - Developer changes: none
 
-### 2026-08-30 - T-009: CreateEventDto + Input Validation 
+### 2026-08-30 - T-009: CreateEventDto + Input Validation
 
 ### Summary
 Created `CreateEventDto` class with class-validator decorators enforcing V1, V4, V5, V6, V7, V8 from business-rules.md §2. Includes two custom validators: `IsValidEventValue` for per-type value range/type checks, and `IsValidEventUnit` for per-type unit consistency. Global `ValidationPipe` with whitelist+transform already present in main.ts.
@@ -426,4 +426,18 @@ Created `CreateEventDto` class with class-validator decorators enforcing V1, V4,
 - Prompt (summary): plan the RulesService listener following the planner-implementer-workflow
 - Outcome: 5-file plan (rules.module, rules.service, rules.service.spec, app.module, DEVELOPMENT_LOG)
 - Decision: accepted — implementation delegated
+- Developer changes: none
+
+### 2026-08-30 — T-017: NotificationProvider + MockWhatsAppProvider
+
+**What was done**: Created `NotificationProvider` interface (`send(payload) → SendResult`), `MockWhatsAppProvider` (logs recipient + message, returns success), `FailingWhatsAppProvider` (test fake returning failure), and `NotificationProvidersModule` exporting the provider under the `NOTIFICATION_PROVIDER` DI token. Wired into `AppModule`.
+
+**Decisions**: `NotificationPayload` carries `recipient` (farm phone) and `message` (notification text) — keeps the interface minimal and swappable per NFR-1. `FailingWhatsAppProvider` ships alongside the mock so future tests (T-020) can exercise the failure path without extra tickets.
+
+**AI interactions**:
+- Tool: Claude (opencode)
+- Objective: Implement T-017 — NotificationProvider abstraction
+- Prompt (summary): Execute plan.md for T-017: create interface, mock provider, failing fake, module, tests, wire into AppModule
+- Outcome: All files created, tests pass (3 tests), lint + typecheck clean
+- Decision: accepted
 - Developer changes: none
