@@ -397,3 +397,21 @@ Created `CreateEventDto` class with class-validator decorators enforcing V1, V4,
 - Outcome: (to be filled after review)
 - Decision: accepted
 - Developer changes: none
+
+### 2026-08-30 — T-027: Simulator Page
+
+**What was done**: Replaced stub Simulator route with full SimulatorForm component. Features: device selector with auto-derived type/unit, auto-generated eventId with override, numeric/select value input depending on device type, timestamp defaulting to now, 7 preset buttons for demo events, client-side validation mirroring server rules, and four-state outcome feedback (alert generated, no alert, duplicate, invalid). Added 13 component test cases and 1 route-level smoke test.
+
+**Decisions**:
+1. **Outcome detection via notification polling** — after a successful POST, the form waits 500ms then queries `listNotifications()` to find a matching notification. The four outcomes are: (a) `duplicate: true` flag in createEvent response → duplicate; (b) ApiError 400 → invalid with field errors; (c) notification found → alert generated with message; (d) no notification → no alert. This avoids changing the backend response contract.
+2. **Client-side validation before submission** — validates eventId (non-empty), value (range for sensors, enum for equipment), and timestamp (non-empty) before calling the API, reducing unnecessary server round-trips. Server errors are still displayed if they occur.
+3. **Presets fill without submitting** — per NFR-2, clicking a preset loads the form fields but does not trigger submission, allowing the user to review before submitting.
+4. **Form stays populated after submit** — after any submission (success or error), only eventId and timestamp get refreshed; the value and device selection persist so the user can tweak and resubmit quickly.
+
+**AI interactions**:
+- Tool: Claude (opencode)
+- Objective: Plan and delegate T-027 implementation
+- Prompt (summary): Full pipeline orchestration for Simulator page ticket — planner produced context.md and plan.md, implementer executed, reviewer verified
+- Outcome: Implementation completed with all gates passing
+- Decision: accepted
+- Developer changes: none
