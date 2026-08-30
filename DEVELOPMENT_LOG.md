@@ -253,7 +253,24 @@ Record of the development process: key steps, decisions, and AI interactions (pe
 - Decision: accepted
 - Developer changes: (none)
 
-## T-009: CreateEventDto + Input Validation (2026-08-30)
+### 2026-08-30 — T-021: FarmModule
+
+**What was done**: Created FarmModule with read-only `GET /api/farm` endpoint returning seeded farm data (`id`, `name`, `producer`, `phone`). FarmService queries Prisma via `findFirst()`. Unit tests for controller (mocked FarmService) and service (mocked PrismaService).
+
+**Decisions**:
+- Used `findFirst()` without arguments since there is only one farm in the MVP — no need for `findUnique` with an ID that the client doesn't provide.
+- No DTOs or validation on the GET endpoint (read-only reference data, no request body).
+- FarmModule is NOT `@Global()` — only AppModule imports it.
+
+**AI interactions**:
+- Tool: Claude (opencode)
+- Objective: implement T-021 per plan
+- Prompt (summary): Execute plan.md literally — branch, code, gates, tests, PR
+- Outcome: FarmModule created, tests pass, PR opened
+- Decision: accepted
+- Developer changes: none
+
+### 2026-08-30 - T-009: CreateEventDto + Input Validation 
 
 ### Summary
 Created `CreateEventDto` class with class-validator decorators enforcing V1, V4, V5, V6, V7, V8 from business-rules.md §2. Includes two custom validators: `IsValidEventValue` for per-type value range/type checks, and `IsValidEventUnit` for per-type unit consistency. Global `ValidationPipe` with whitelist+transform already present in main.ts.

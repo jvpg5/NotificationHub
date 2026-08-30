@@ -79,7 +79,7 @@
 
 | ID | Ticket | Pts | Depends on | Parallel-safe | Status |
 |---|---|---|---|---|---|
-| [T-021](tickets/EPIC-06-farm-devices/T-021-farm-module.md) | FarmModule | 2 | T-007, T-008 | yes (vs frontend) | todo |
+| [T-021](tickets/EPIC-06-farm-devices/T-021-farm-module.md) | FarmModule | 2 | T-007, T-008 | yes (vs frontend) | done |
 | [T-022](tickets/EPIC-06-farm-devices/T-022-devices-module.md) | DevicesModule | 2 | T-007, T-008 | yes (vs frontend) | todo |
 
 ## EPIC-07 — Frontend Foundation
