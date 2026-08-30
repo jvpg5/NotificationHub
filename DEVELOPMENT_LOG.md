@@ -128,3 +128,22 @@ Record of the development process: key steps, decisions, and AI interactions (pe
 - Outcome: (to be filled after review)
 - Decision: accepted
 - Developer changes: (none)
+
+### 2026-08-30 — T-004: shared-types Package
+
+**What was done**: Created `packages/shared-types` with all shared TypeScript enums (`EventType`, `Severity`, `NotificationStatus`, `EquipmentStatus`) and interfaces (`CreateEventDto`, `EventResponse`, `NotificationResponse`, `FarmResponse`, `DeviceResponse`, `PaginatedResponse<T>`), registered as a workspace dependency in both `apps/backend` and `apps/frontend`. Package builds to `dist/` with declarations; full monorepo typecheck passes.
+
+**Decisions**:
+1. **`private: true` + no runtime code** — types/enums only; no external npm publish.
+2. **`module: commonjs` in tsconfig** — matches backend's module system; frontend uses `moduleResolution: bundler` and handles CJS declarations transparently through Vite.
+3. **`CreateEventDto.value` typed as `number | string`** — sensor types use number, `EQUIPMENT_STATUS` uses string. Validation (range checks, type-specific constraints) comes later in T-009.
+4. **`EventResponse` has both `value` (number|null) and `textValue` (string|null)` — mirrors the stored event shape from the API contract: sensor events populate `value`, equipment events populate `textValue`.
+5. **`workspace:*` protocol** — pnpm's native workspace linking, no version range needed.
+
+**AI interactions**:
+- Tool: opencode agents (orchestrator/GLM planned; implementer/DeepSeek v4 Flash executed; reviewer/DeepSeek v4 Pro reviewed)
+- Objective: create the shared-types package per T-004
+- Prompt (summary): execute plan.md literally — create package with enums/types, wire into both apps, verify compilation
+- Outcome: (to be filled after review)
+- Decision: accepted
+- Developer changes: (none)
