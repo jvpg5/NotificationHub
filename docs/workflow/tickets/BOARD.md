@@ -88,7 +88,7 @@
 |---|---|---|---|---|---|
 | [T-023](tickets/EPIC-07-frontend-foundation/T-023-router-layout.md) | React Router + Layout + navigation | 3 | T-003 | yes (vs backend) | done |
 | [T-024](tickets/EPIC-07-frontend-foundation/T-024-api-service-proxy.md) | API service + Vite proxy | 2 | T-004, T-003 | yes (vs backend) | done |
-| [T-025](tickets/EPIC-07-frontend-foundation/T-025-data-hooks.md) | Data hooks (useEvents, useNotifications) | 3 | T-024 | no (integration) | todo |
+| [T-025](tickets/EPIC-07-frontend-foundation/T-025-data-hooks.md) | Data hooks (useEvents, useNotifications) | 3 | T-024 | no (integration) | done |
 
 ## EPIC-08 — Frontend Pages
 
