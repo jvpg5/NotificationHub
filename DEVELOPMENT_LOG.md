@@ -235,5 +235,20 @@ Record of the development process: key steps, decisions, and AI interactions (pe
 - Objective: run the T-008 pipeline (plan → implement → review → PR)
 - Prompt (summary): execute plan.md literally — seed script with upserts, idempotency, optional demo events
 - Outcome: completed; Prisma 7 required driver adapter (@prisma/adapter-libsql + @libsql/client) and config in prisma.config.ts — deviations logged
+
+### 2026-08-30 — T-025: Data Hooks (useEvents, useNotifications, useFarm, useDevices, useCreateEvent)
+
+**What was done**: Installed `@tanstack/react-query` in frontend, created QueryClientProvider in main.tsx with 5s staleTime/refetchInterval, implemented 5 hook files (useEvents, useNotifications, useFarm, useDevices, useCreateEvent) all exposing `{ data, isLoading, isError, error }` consistently, and added 5 test files with mocked API service.
+
+**Decisions**:
+1. **`staleTime: 5000` + `refetchInterval: 5000`** — polling-based auto-refresh per SPEC-005 FR-5; hooks inherit the default from QueryClientProvider.
+2. **`useCreateEvent` mutation invalidates `['events']` and `['notifications']` on success** — ensures list views refresh after a new event is created.
+3. **Test hooks use `vi.mock` for API service + `renderHook` with fresh QueryClientProvider** — avoids coupling to global fetch mocking; each test gets a clean query client with `retry: false`.
+
+**AI interactions**:
+- Tool: opencode agents (orchestrator/GLM planned; implementer/DeepSeek v4 Pro executed)
+- Objective: create TanStack Query hooks wrapping the API service per T-025
+- Prompt (summary): execute plan.md literally — install react-query, wrap main.tsx, create 5 hooks, add tests, verify gates
+- Outcome: all steps completed; all gates pass
 - Decision: accepted
 - Developer changes: (none)
