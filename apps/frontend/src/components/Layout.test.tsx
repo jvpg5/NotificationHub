@@ -12,9 +12,9 @@ describe('Layout', () => {
       </MemoryRouter>,
     );
 
-    expect(screen.getByRole('link', { name: 'Dashboard' })).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: 'Simulator' })).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: 'History' })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /dashboard/i })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /simulator/i })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /history/i })).toBeInTheDocument();
   });
 
   it('navigation links point to correct routes', () => {
@@ -24,15 +24,15 @@ describe('Layout', () => {
       </MemoryRouter>,
     );
 
-    expect(screen.getByRole('link', { name: 'Dashboard' })).toHaveAttribute(
+    expect(screen.getByRole('link', { name: /dashboard/i })).toHaveAttribute(
       'href',
       '/',
     );
-    expect(screen.getByRole('link', { name: 'Simulator' })).toHaveAttribute(
+    expect(screen.getByRole('link', { name: /simulator/i })).toHaveAttribute(
       'href',
       '/simulator',
     );
-    expect(screen.getByRole('link', { name: 'History' })).toHaveAttribute(
+    expect(screen.getByRole('link', { name: /history/i })).toHaveAttribute(
       'href',
       '/history',
     );
@@ -47,11 +47,11 @@ describe('Layout', () => {
     );
 
     expect(
-      screen.getByRole('link', { name: 'Dashboard' }).className,
-    ).not.toContain('active');
+      screen.getByRole('link', { name: /dashboard/i }).className,
+    ).not.toContain('text-primary');
     expect(
-      screen.getByRole('link', { name: 'Simulator' }).className,
-    ).toContain('active');
+      screen.getByRole('link', { name: /simulator/i }).className,
+    ).toContain('text-primary');
 
     unmount();
 
@@ -63,10 +63,10 @@ describe('Layout', () => {
     );
 
     expect(
-      screen.getByRole('link', { name: 'Dashboard' }).className,
-    ).not.toContain('active');
+      screen.getByRole('link', { name: /dashboard/i }).className,
+    ).not.toContain('text-primary');
     expect(
-      screen.getByRole('link', { name: 'History' }).className,
-    ).toContain('active');
+      screen.getByRole('link', { name: /history/i }).className,
+    ).toContain('text-primary');
   });
 });

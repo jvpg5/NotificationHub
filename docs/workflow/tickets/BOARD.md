@@ -63,7 +63,7 @@
 |---|---|---|---|---|---|
 | [T-013](tickets/EPIC-04-rules-engine/T-013-rule-interface-registry.md) | Rule interface + RulesRegistry | 2 | T-004 | yes (vs frontend) | done |
 | [T-014](tickets/EPIC-04-rules-engine/T-014-threshold-rules.md) | Threshold rules (5 sensor rules) | 3 | T-013 | yes (vs frontend) | done |
-| [T-015](tickets/EPIC-04-rules-engine/T-015-equipment-status-rule.md) | Equipment status rule | 2 | T-013 | yes (vs frontend) | todo |
+| [T-015](tickets/EPIC-04-rules-engine/T-015-equipment-status-rule.md) | Equipment status rule | 2 | T-013 | yes (vs frontend) | done |
 | [T-016](tickets/EPIC-04-rules-engine/T-016-rules-service-listener.md) | RulesService listener | 3 | T-014, T-015 | yes (vs frontend) | todo |
 
 ## EPIC-05 — Notifications
@@ -94,7 +94,7 @@
 
 | ID | Ticket | Pts | Depends on | Parallel-safe | Status |
 |---|---|---|---|---|---|
-| [T-026](tickets/EPIC-08-frontend-pages/T-026-dashboard-page.md) | Dashboard page | 5 | T-025, T-021, T-022 | no (integration) | todo |
+| [T-026](tickets/EPIC-08-frontend-pages/T-026-dashboard-page.md) | Dashboard page | 5 | T-025, T-021, T-022 | no (integration) | done |
 | [T-027](tickets/EPIC-08-frontend-pages/T-027-simulator-page.md) | Simulator page | 5 | T-025 | yes (vs T-026/T-028) | todo |
 | [T-028](tickets/EPIC-08-frontend-pages/T-028-history-page.md) | History page | 3 | T-025 | yes (vs T-026/T-027) | todo |
 

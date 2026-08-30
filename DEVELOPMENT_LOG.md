@@ -287,6 +287,25 @@ Record of the development process: key steps, decisions, and AI interactions (pe
 - Decision: accepted
 - Developer changes: none
 
+### 2026-08-30 — T-026: Dashboard Page
+
+**What was done**: Built the Dashboard landing page with farm info, device list, latest events, and latest notifications. Installed Tailwind CSS + lucide-react as styling foundation. Implemented severity/status badges (CRITICAL/WARNING/INFO, SENT/FAILED/PENDING) following business rules. Added loading skeletons, empty states, and error states with auto-recovery via React Query polling.
+
+**Decisions**:
+- Used Tailwind CSS v3 with PostCSS rather than Tailwind v4 for stability
+- Used lucide-react for icons (lightweight, tree-shakeable)
+- Did not install shadcn/ui — components built with Tailwind utility classes matching the padrão-dashboard visual tokens
+- Polling interval of 5s is configured globally in QueryClient (existed from T-025)
+- Each section handles its own loading/error/empty states independently (no shared data-loading wrapper)
+
+**AI interactions**:
+- Tool: OpenCode (deepseek/deepseek-v4-pro)
+- Objective: Plan, implement, and review the dashboard page end-to-end
+- Prompt (summary): Execute T-026 pipeline — build dashboard with all components, tests, and styling
+- Outcome: Full dashboard page implemented with 11 new files, 0 regressions
+- Decision: Accepted
+- Developer changes: None
+
 ### 2026-08-30 — T-022: DevicesModule
 
 **What was done**: Created `DevicesModule` with `GET /api/devices` endpoint — returns all seeded devices (`id`, `farmId`, `type`, `label`) wrapped in `{ data: [...] }`. Single `prisma.device.findMany()` query. Module registered in `AppModule`.
@@ -375,3 +394,19 @@ Created `CreateEventDto` class with class-validator decorators enforcing V1, V4,
 - **Gate results**: typecheck ✅, lint ✅ (0 errors), all 65 tests ✅ (12 suites)
 - **Deviation**: controller spec used `overrideGuard().useValue()` instead of provider `useValue` — NestJS resolves `@UseGuards()` guards through guard consumer, not the providers array.
 - **Satisfies**: SPEC-001 FR-5, business-rules.md §7, scenario S16
+
+### 2026-08-30 — T-015: Equipment Status Rule
+
+**What was done**: Created EquipmentStatusRule — a string-equality rule that triggers on EQUIPMENT_STATUS = FAILURE with CRITICAL severity and no farm name in the message template. Added 4 unit tests (trigger, OK, MAINTENANCE, byte-for-byte message match).
+
+**Decisions**:
+1. **String equality, not numeric comparison** — uses `=== 'FAILURE'`, consistent with the only non-threshold rule in the system.
+2. **Plain class, no @Injectable** — follows the T-014 pattern; T-016 will instantiate and register.
+
+**AI interactions**:
+- Tool: opencode agents (orchestrator/DeepSeek V4 Pro planned; implementer/DeepSeek V4 Flash executed; reviewer/DeepSeek V4 Pro reviewed)
+- Objective: implement the equipment status rule per T-015
+- Prompt (summary): execute plan.md literally — create rule class with string equality, add 4 tests, validate gates
+- Outcome: (to be filled after review)
+- Decision: accepted
+- Developer changes: none
