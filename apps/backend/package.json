@@ -17,7 +17,8 @@
     "class-transformer": "^0.5.0",
     "class-validator": "^0.14.0",
     "reflect-metadata": "^0.2.0",
-    "rxjs": "^7.8.0"
+    "rxjs": "^7.8.0",
+    "shared-types": "workspace:*"
   },
   "devDependencies": {
     "@nestjs/cli": "^11.0.0",

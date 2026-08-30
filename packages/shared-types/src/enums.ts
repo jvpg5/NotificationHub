@@ -1,0 +1,26 @@
+export enum EventType {
+  AIR_TEMPERATURE = 'AIR_TEMPERATURE',
+  AIR_HUMIDITY = 'AIR_HUMIDITY',
+  SOIL_MOISTURE = 'SOIL_MOISTURE',
+  WATER_RESERVOIR_LEVEL = 'WATER_RESERVOIR_LEVEL',
+  SILO_LEVEL = 'SILO_LEVEL',
+  EQUIPMENT_STATUS = 'EQUIPMENT_STATUS',
+}
+
+export enum Severity {
+  CRITICAL = 'CRITICAL',
+  WARNING = 'WARNING',
+  INFO = 'INFO',
+}
+
+export enum NotificationStatus {
+  PENDING = 'PENDING',
+  SENT = 'SENT',
+  FAILED = 'FAILED',
+}
+
+export enum EquipmentStatus {
+  OK = 'OK',
+  FAILURE = 'FAILURE',
+  MAINTENANCE = 'MAINTENANCE',
+}
