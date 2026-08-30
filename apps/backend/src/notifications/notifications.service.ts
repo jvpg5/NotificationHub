@@ -88,4 +88,31 @@ export class NotificationsService {
     // 4. Emit final
     this.eventEmitter.emit('notification.sent', finalNotification);
   }
+
+  async findAll(
+    limit: number,
+    offset: number,
+    status?: string,
+    severity?: string,
+  ): Promise<{ data: PrismaNotification[]; total: number }> {
+    const where: Record<string, unknown> = {};
+    if (status) where.status = status;
+    if (severity) where.severity = severity;
+
+    const [data, total] = await Promise.all([
+      this.prisma.notification.findMany({
+        where,
+        orderBy: { createdAt: 'desc' },
+        skip: offset,
+        take: limit,
+      }),
+      this.prisma.notification.count({ where }),
+    ]);
+
+    return { data, total };
+  }
+
+  async findOne(id: string): Promise<PrismaNotification | null> {
+    return this.prisma.notification.findUnique({ where: { id } });
+  }
 }
