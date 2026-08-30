@@ -54,7 +54,7 @@
 |---|---|---|---|---|---|
 | [T-009](tickets/EPIC-03-event-ingestion/T-009-create-event-dto-validation.md) | CreateEventDto + input validation | 3 | T-004, T-007 | yes (vs frontend) | done |
 | [T-010](tickets/EPIC-03-event-ingestion/T-010-events-service-controller.md) | EventsService + EventsController | 3 | T-009 | yes (vs frontend) | done |
-| [T-011](tickets/EPIC-03-event-ingestion/T-011-idempotency-guard.md) | IdempotencyGuard | 3 | T-010 | yes (vs frontend) | todo |
+| [T-011](tickets/EPIC-03-event-ingestion/T-011-idempotency-guard.md) | IdempotencyGuard | 3 | T-010 | yes (vs frontend) | done |
 | [T-012](tickets/EPIC-03-event-ingestion/T-012-events-e2e-tests.md) | Events e2e tests | 2 | T-011 | yes (vs frontend) | todo |
 
 ## EPIC-04 — Rules Engine
@@ -64,7 +64,7 @@
 | [T-013](tickets/EPIC-04-rules-engine/T-013-rule-interface-registry.md) | Rule interface + RulesRegistry | 2 | T-004 | yes (vs frontend) | done |
 | [T-014](tickets/EPIC-04-rules-engine/T-014-threshold-rules.md) | Threshold rules (5 sensor rules) | 3 | T-013 | yes (vs frontend) | done |
 | [T-015](tickets/EPIC-04-rules-engine/T-015-equipment-status-rule.md) | Equipment status rule | 2 | T-013 | yes (vs frontend) | done |
-| [T-016](tickets/EPIC-04-rules-engine/T-016-rules-service-listener.md) | RulesService listener | 3 | T-014, T-015 | yes (vs frontend) | todo |
+| [T-016](tickets/EPIC-04-rules-engine/T-016-rules-service-listener.md) | RulesService listener | 3 | T-014, T-015 | yes (vs frontend) | done |
 
 ## EPIC-05 — Notifications
 
@@ -80,7 +80,7 @@
 | ID | Ticket | Pts | Depends on | Parallel-safe | Status |
 |---|---|---|---|---|---|
 | [T-021](tickets/EPIC-06-farm-devices/T-021-farm-module.md) | FarmModule | 2 | T-007, T-008 | yes (vs frontend) | done |
-| [T-022](tickets/EPIC-06-farm-devices/T-022-devices-module.md) | DevicesModule | 2 | T-007, T-008 | yes (vs frontend) | todo |
+| [T-022](tickets/EPIC-06-farm-devices/T-022-devices-module.md) | DevicesModule | 2 | T-007, T-008 | yes (vs frontend) | done |
 
 ## EPIC-07 — Frontend Foundation
 

@@ -10,15 +10,18 @@ import {
   HttpCode,
   HttpStatus,
   NotFoundException,
+  UseGuards,
 } from '@nestjs/common';
 import { EventType } from 'shared-types';
 import { EventsService } from './events.service';
 import { CreateEventDto } from './dto/create-event.dto';
+import { IdempotencyGuard } from '../common/guards/idempotency.guard';
 
 @Controller('events')
 export class EventsController {
   constructor(private readonly eventsService: EventsService) {}
 
+  @UseGuards(IdempotencyGuard)
   @Post()
   @HttpCode(HttpStatus.CREATED)
   async create(@Body() dto: CreateEventDto) {

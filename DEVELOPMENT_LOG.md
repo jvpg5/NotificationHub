@@ -382,6 +382,19 @@ Created `CreateEventDto` class with class-validator decorators enforcing V1, V4,
 - Decision: accepted
 - Developer changes: (none)
 
+## T-011: IdempotencyGuard — 2026-08-30
+- **Branch**: T-011-idempotency-guard
+- **Summary**: Added `IdempotencyGuard` that checks `eventId` existence via Prisma before `POST /api/events`. Duplicates return 200 + stored event + `duplicate: true` without re-processing.
+- **Files**:
+  - `apps/backend/src/common/guards/idempotency.guard.ts` — guard implementation (CanActivate)
+  - `apps/backend/src/common/guards/idempotency.guard.spec.ts` — 5 unit tests
+  - `apps/backend/src/events/events.controller.ts` — @UseGuards(IdempotencyGuard) on POST
+  - `apps/backend/src/events/events.module.ts` — IdempotencyGuard in providers
+  - `apps/backend/src/events/events.controller.spec.ts` — mock IdempotencyGuard via overrideGuard
+- **Gate results**: typecheck ✅, lint ✅ (0 errors), all 65 tests ✅ (12 suites)
+- **Deviation**: controller spec used `overrideGuard().useValue()` instead of provider `useValue` — NestJS resolves `@UseGuards()` guards through guard consumer, not the providers array.
+- **Satisfies**: SPEC-001 FR-5, business-rules.md §7, scenario S16
+
 ### 2026-08-30 — T-015: Equipment Status Rule
 
 **What was done**: Created EquipmentStatusRule — a string-equality rule that triggers on EQUIPMENT_STATUS = FAILURE with CRITICAL severity and no farm name in the message template. Added 4 unit tests (trigger, OK, MAINTENANCE, byte-for-byte message match).
@@ -414,4 +427,20 @@ Created `CreateEventDto` class with class-validator decorators enforcing V1, V4,
 - Prompt (summary): Full pipeline orchestration for Simulator page ticket — planner produced context.md and plan.md, implementer executed, reviewer verified
 - Outcome: Implementation completed with all gates passing
 - Decision: accepted
+
+### 2026-08-30 — T-016: RulesService Listener
+
+**What was done**: Created RulesModule with RulesRegistry + all 6 rules registered, and RulesService as an `@OnEvent('event.received')` listener. The listener resolves the farm name, constructs a rule-compatible DTO from the Prisma Event, queries RulesRegistry for matching rules, evaluates each with FR-9 error containment, and emits `notification.generated` when triggered (at most one per event, FR-7).
+
+**Decisions**:
+1. **Rules are registered via factory + OnModuleInit** — rules are plain classes (not @Injectable), so a factory provider creates instances and OnModuleInit registers them. Adding @Injectable to each rule would be a separate concern better left for a refactor ticket.
+2. **PrismaService used directly for farm lookup** — PrismaService is @Global(), so no module import needed. FarmService.getFarm() exists but only returns the first farm; looking up by event.farmId is more correct.
+3. **Prisma Event → rule-input mapping** — for EQUIPMENT_STATUS, `event.textValue` is used as `value` (string), since the Prisma model stores text in a separate column. For sensor types, `event.value` (number) is used.
+
+**AI interactions**:
+- Tool: Claude (opencode)
+- Objective: plan T-016 implementation
+- Prompt (summary): plan the RulesService listener following the planner-implementer-workflow
+- Outcome: 5-file plan (rules.module, rules.service, rules.service.spec, app.module, DEVELOPMENT_LOG)
+- Decision: accepted — implementation delegated
 - Developer changes: none
