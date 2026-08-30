@@ -252,3 +252,17 @@ Record of the development process: key steps, decisions, and AI interactions (pe
 - Outcome: all steps completed; all gates pass
 - Decision: accepted
 - Developer changes: (none)
+
+## T-009: CreateEventDto + Input Validation (2026-08-30)
+
+### Summary
+Created `CreateEventDto` class with class-validator decorators enforcing V1, V4, V5, V6, V7, V8 from business-rules.md §2. Includes two custom validators: `IsValidEventValue` for per-type value range/type checks, and `IsValidEventUnit` for per-type unit consistency. Global `ValidationPipe` with whitelist+transform already present in main.ts.
+
+### Files changed
+- `apps/backend/src/events/dto/create-event.dto.ts` — new: DTO class + 2 custom `ValidatorConstraint` classes
+- `apps/backend/src/events/dto/create-event.dto.spec.ts` — new: 9 unit tests covering S9, S11–S15 + NFR-1
+
+### Validation
+- `pnpm --filter backend test -- --testPathPattern=events` — 9/9 passing
+- `pnpm --filter backend lint` — clean
+- `pnpm --filter backend typecheck` — clean
