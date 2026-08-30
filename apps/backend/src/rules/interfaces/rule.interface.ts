@@ -11,8 +11,12 @@ export interface RuleResult {
   notification?: RuleNotificationPayload;
 }
 
+export interface RuleEvaluationContext {
+  farmName: string;
+}
+
 export interface Rule {
   id: string;
   eventType: EventType;
-  evaluate(event: CreateEventDto): RuleResult;
+  evaluate(event: CreateEventDto, context: RuleEvaluationContext): RuleResult;
 }
