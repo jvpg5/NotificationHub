@@ -179,5 +179,11 @@ Record of the development process: key steps, decisions, and AI interactions (pe
 - Objective: create Prisma schema, initial migration per T-006
 - Prompt (summary): execute plan.md literally — install prisma deps, write schema from data-model.md, run generate/validate/migrate/dev
 - Outcome: implementer hit Prisma v8 CLI incompatibility blocker; orchestrator diagnosed, re-pinned to v7.10.0, added prisma.config.ts, completed all steps
-- Decision: accepted with plan correction (version pin + prisma.config.ts)
 - Developer changes: (none)
+
+### 2026-08-30 — T-007: PrismaModule + PrismaService
+- Created `src/prisma/prisma.service.ts` — extends PrismaClient, OnModuleInit $connect
+- Created `src/prisma/prisma.module.ts` — @Global(), exports PrismaService
+- Imported PrismaModule in AppModule
+- Added `app.enableShutdownHooks()` in main.ts for graceful $disconnect on SIGTERM
+- Added unit test covering connect lifecycle
