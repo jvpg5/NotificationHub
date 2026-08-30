@@ -317,3 +317,33 @@ Created `CreateEventDto` class with class-validator decorators enforcing V1, V4,
 - `pnpm --filter backend test -- --testPathPattern=events` — 9/9 passing
 - `pnpm --filter backend lint` — clean
 - `pnpm --filter backend typecheck` — clean
+
+### 2026-08-30 — T-010: EventsService + EventsController
+
+**What was done**: Created EventsService (processEvent with farm/device existence validation, event persistence, event.received emission), EventsController (POST/GET/GET:id endpoints), EventsModule with EventEmitterModule. Installed @nestjs/event-emitter.
+
+**Files changed**:
+- `apps/backend/src/events/events.service.ts` — new
+- `apps/backend/src/events/events.service.spec.ts` — new (9 tests)
+- `apps/backend/src/events/events.controller.ts` — new
+- `apps/backend/src/events/events.controller.spec.ts` — new (6 tests)
+- `apps/backend/src/events/events.module.ts` — new
+- `apps/backend/src/app.module.ts` — added EventsModule
+
+**Decisions**:
+1. EventEmitterModule.forRoot() in EventsModule — marks NestJS event system as available; consumed by future RulesService (T-016).
+2. V2/V3 farm/device validation in service (not DTO) — requires DB access; cross-field rules belong in service layer per T-009 context.
+3. Mapping: EQUIPMENT_STATUS → value=null, textValue=string; sensor → value=number, textValue=null — matches seed pattern and Prisma schema (Float? + String?).
+
+**Validation**:
+- `npx jest --testPathPattern=events` — 24/24 tests passing (9 DTO + 9 service + 6 controller)
+- `pnpm --filter backend lint` — clean
+- `pnpm --filter backend typecheck` — clean
+
+**AI interactions**:
+- Tool: opencode agents (orchestrator planned; implementer executed; reviewer will review)
+- Objective: implement EventsService + EventsController per T-010
+- Prompt (summary): execute plan.md literally — service with farm/device validation, controller with 3 endpoints, module with EventEmitter, tests
+- Outcome: (to be filled after review)
+- Decision: accepted
+- Developer changes: (none)
