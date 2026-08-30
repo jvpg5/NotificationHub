@@ -1,0 +1,68 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model Farm {
+  id        String   @id
+  name      String
+  producer  String
+  phone     String
+  createdAt DateTime @default(now())
+
+  devices Device[]
+  events  Event[]
+}
+
+model Device {
+  id        String   @id
+  farmId    String
+  type      String
+  label     String
+  createdAt DateTime @default(now())
+
+  farm   Farm    @relation(fields: [farmId], references: [id])
+  events Event[]
+}
+
+model Event {
+  id         String   @id
+  farmId     String
+  deviceId   String
+  type       String
+  value      Float?
+  textValue  String?
+  unit       String?
+  timestamp  DateTime
+  receivedAt DateTime @default(now())
+
+  farm         Farm          @relation(fields: [farmId], references: [id])
+  device       Device        @relation(fields: [deviceId], references: [id])
+  notification Notification?
+
+  @@index([farmId, deviceId, type])
+}
+
+model Notification {
+  id            String    @id @default(uuid())
+  eventId       String    @unique
+  farmId        String
+  deviceId      String
+  eventType     String
+  eventValue    Float?
+  ruleTriggered String
+  severity      String
+  message       String
+  status        String    @default("PENDING")
+  sentAt        DateTime?
+  failureReason String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  event Event @relation(fields: [eventId], references: [id])
+
+  @@index([farmId, status, createdAt])
+}
