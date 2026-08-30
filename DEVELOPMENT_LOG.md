@@ -269,3 +269,20 @@ Record of the development process: key steps, decisions, and AI interactions (pe
 - Outcome: (to be filled after review)
 - Decision: accepted
 - Developer changes: (none)
+
+### 2026-08-30 — T-021: FarmModule
+
+**What was done**: Created FarmModule with read-only `GET /api/farm` endpoint returning seeded farm data (`id`, `name`, `producer`, `phone`). FarmService queries Prisma via `findFirst()`. Unit tests for controller (mocked FarmService) and service (mocked PrismaService).
+
+**Decisions**:
+- Used `findFirst()` without arguments since there is only one farm in the MVP — no need for `findUnique` with an ID that the client doesn't provide.
+- No DTOs or validation on the GET endpoint (read-only reference data, no request body).
+- FarmModule is NOT `@Global()` — only AppModule imports it.
+
+**AI interactions**:
+- Tool: Claude (opencode)
+- Objective: implement T-021 per plan
+- Prompt (summary): Execute plan.md literally — branch, code, gates, tests, PR
+- Outcome: FarmModule created, tests pass, PR opened
+- Decision: accepted
+- Developer changes: none
