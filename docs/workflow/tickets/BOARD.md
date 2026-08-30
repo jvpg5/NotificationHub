@@ -103,7 +103,7 @@
 | ID | Ticket | Pts | Depends on | Parallel-safe | Status |
 |---|---|---|---|---|---|
 | [T-029](tickets/EPIC-09-quality-coverage/T-029-coverage-ci.md) | Coverage report + CI workflow | 3 | T-012, T-020 | no | done |
-| [T-030](tickets/EPIC-09-quality-coverage/T-030-test-hardening.md) | Test hardening (edge cases + components) | 5 | T-029 | no | todo |
+| [T-030](tickets/EPIC-09-quality-coverage/T-030-test-hardening.md) | Test hardening (edge cases + components) | 5 | T-029 | no | in-progress |
 
 ## EPIC-10 — Final Documentation
 

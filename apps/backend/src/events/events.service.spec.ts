@@ -224,6 +224,15 @@ describe('EventsService', () => {
         where: { type: EventType.AIR_TEMPERATURE },
       });
     });
+
+    it('should return empty data array with zero total when DB is empty', async () => {
+      prisma.event.findMany.mockResolvedValue([]);
+      prisma.event.count.mockResolvedValue(0);
+
+      const result = await service.findAll(50, 0);
+
+      expect(result).toEqual({ data: [], total: 0 });
+    });
   });
 
   describe('findOne', () => {
