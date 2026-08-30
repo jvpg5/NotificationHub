@@ -287,6 +287,23 @@ Record of the development process: key steps, decisions, and AI interactions (pe
 - Decision: accepted
 - Developer changes: none
 
+### 2026-08-30 — T-022: DevicesModule
+
+**What was done**: Created `DevicesModule` with `GET /api/devices` endpoint — returns all seeded devices (`id`, `farmId`, `type`, `label`) wrapped in `{ data: [...] }`. Single `prisma.device.findMany()` query. Module registered in `AppModule`.
+
+**Decisions**:
+- Uses `select` in Prisma query to return only the 4 fields per the API contract (excludes `createdAt`).
+- Response shape `{ data: [...] }` per `docs/architecture/api.md`.
+- Follows the same pattern as T-021 FarmModule for consistency.
+
+**AI interactions**:
+- Tool: Claude (pipeline orchestrator + OpenCode implementer)
+- Objective: Implement DevicesModule per plan.md
+- Prompt (summary): Execute plan.md steps for T-022 — create service, controller, module, tests; register in AppModule
+- Outcome: All files created, gates pass (lint, typecheck, tests)
+- Decision: accepted — no deviations
+- Developer changes: none
+
 ### 2026-08-30 - T-009: CreateEventDto + Input Validation 
 
 ### Summary
