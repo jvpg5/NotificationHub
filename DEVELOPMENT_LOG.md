@@ -459,6 +459,21 @@ Created `CreateEventDto` class with class-validator decorators enforcing V1, V4,
 - Decision: accepted
 - Developer changes: none
 
+### 2026-08-30 — T-028: History Page
+
+**What was done**: Replaced the History stub with a full filterable, paginated history table. Created `useHistory` hook that fetches events and notifications in parallel, joins them by eventId client-side, and returns unified rows. The History page renders a 12-column table with event data plus notification chain (rule, severity, message, status, outcome). Includes three filter dropdowns (event type, severity, status) and offset-based pagination (page size 20).
+
+**Decisions**:
+1. **Client-side join** — no combined events+notifications endpoint exists. Events drive pagination via `listEvents({ limit, offset, type })`; notifications are fetched in parallel for joining. With 7 demo events this is efficient; for production scale a dedicated backend endpoint would be warranted.
+2. **Tailwind `<table>`** — no shadcn/ui in this project. Used HTML table with Tailwind classes following the existing badge and border/divide patterns from NotificationCard and Dashboard.
+3. **No new dependencies** — kept within existing tech stack (React, @tanstack/react-query, Tailwind, lucide-react).
+4. **Filter reset** — changing any filter resets page to 1 to avoid empty pages at high offsets.
+
+**AI interactions**:
+- Tool: opencode agents (orchestrator/DeepSeek V4 Pro planned; implementer/DeepSeek V4 Pro executed; reviewer/DeepSeek V4 Pro reviewed)
+- Objective: implement the History page per T-028 and SPEC-007
+- Prompt (summary): execute plan.md literally — create useHistory hook, replace History stub with full table/filters/pagination, write component tests, validate gates
+
 ### 2026-08-30 — T-018: NotificationsService (Lifecycle)
 
 **What was done**: Created `NotificationsService` — an `@OnEvent('notification.generated')` listener that persists a PENDING notification, sends via `NotificationProvider` (resolving farm phone as recipient), updates to `SENT`/`FAILED` with `sentAt`/`failureReason`, and emits `notification.sent`. Registered via `NotificationsModule` and wired into `AppModule`. 4 unit tests cover success, provider failure (result.ok=false), provider throw (FR-9 containment), and PENDING-before-send ordering.
