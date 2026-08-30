@@ -2,61 +2,61 @@
   "version": 1,
   "skills": {
     "code-review-subagent": {
-      "source": ".claude/skills/code-review-subagent/SKILL.md",
+      "source": ".opencode/skills/code-review-subagent/SKILL.md",
       "sourceType": "local",
       "skillPath": "SKILL.md",
       "computedHash": "e7a7833b5041281394dbc0aabf59beea7a766374aa47b7debea8d4ba78cb810d"
     },
     "curl-endpoint-testing": {
-      "source": ".claude/skills/curl-endpoint-testing/SKILL.md",
+      "source": ".opencode/skills/curl-endpoint-testing/SKILL.md",
       "sourceType": "local",
       "skillPath": "SKILL.md",
       "computedHash": "eb4fa491ea0e70357b5cfa0f4a989d701b379925928a6014b184cd14edae87f2"
     },
     "nestjs-best-practices": {
-      "source": ".claude/skills/nestjs-best-practices/SKILL.md",
+      "source": ".opencode/skills/nestjs-best-practices/SKILL.md",
       "sourceType": "local",
       "skillPath": "SKILL.md",
       "computedHash": "b699d2245ddc6b6cdd08d86db0a89903556dc33138acb2d34645b5c2fb319219"
     },
     "nestjs-security-best-practices": {
-      "source": ".claude/skills/nestjs-security-best-practices/SKILL.md",
+      "source": ".opencode/skills/nestjs-security-best-practices/SKILL.md",
       "sourceType": "local",
       "skillPath": "SKILL.md",
       "computedHash": "39bfe2f12bc66fe24be2b31d0f256047c47437ea1ec4b2ce40a61a177bdb5d96"
     },
     "padrao-dashboard": {
-      "source": ".claude/skills/padrao-dashboard/SKILL.md",
+      "source": ".opencode/skills/padrao-dashboard/SKILL.md",
       "sourceType": "local",
       "skillPath": "SKILL.md",
       "computedHash": "b6794fde063e0b26aa513b24573a57c7270bb18e343286b4125193763f1b1ebb"
     },
     "plan-task": {
-      "source": ".claude/skills/plan-task/SKILL.md",
+      "source": ".opencode/skills/plan-task/SKILL.md",
       "sourceType": "local",
       "skillPath": "SKILL.md",
       "computedHash": "0803bdc65cc14a03cd18f5a262c470f4a6d70b3b662cc3705267f56dfaa041a1"
     },
     "planner-implementer-workflow": {
-      "source": ".claude/skills/planner-implementer-workflow/SKILL.md",
+      "source": ".opencode/skills/planner-implementer-workflow/SKILL.md",
       "sourceType": "local",
       "skillPath": "SKILL.md",
       "computedHash": "3d253965257a1c127c0042bf1ae104e095f55e95a7306e0db4c58c82e5760ab9"
     },
     "pr-description": {
-      "source": ".claude/skills/pr-description/SKILL.md",
+      "source": ".opencode/skills/pr-description/SKILL.md",
       "sourceType": "local",
       "skillPath": "SKILL.md",
       "computedHash": "5a5eaec04c913a611be042f97ecd8c5e5cff22e59b3bdc6633e01ce7ea6a8d92"
     },
     "review-bugbot": {
-      "source": ".claude/skills/review-bugbot/SKILL.md",
+      "source": ".opencode/skills/review-bugbot/SKILL.md",
       "sourceType": "local",
       "skillPath": "SKILL.md",
       "computedHash": "4c9ab9368d1b7a350441854288f58841260ccc25a2b6e4dbd116d19c6266501e"
     },
     "review-security": {
-      "source": ".claude/skills/review-security/SKILL.md",
+      "source": ".opencode/skills/review-security/SKILL.md",
       "sourceType": "local",
       "skillPath": "SKILL.md",
       "computedHash": "277d6d56f17a4d5111fab2d3948d04cd4da2dda39d90bedfdfb4d26f1e0f1087"
