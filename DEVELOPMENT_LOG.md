@@ -220,3 +220,20 @@ Record of the development process: key steps, decisions, and AI interactions (pe
 - Outcome: (to be filled after review)
 - Decision: accepted
 - Developer changes: (none)
+
+### 2026-08-30 — T-008: Seed Script (Farm, Devices, Demo Events)
+
+**What was done**: Created `apps/backend/prisma/seed.ts` — idempotent seed script using Prisma upserts for farm `farm-001`, 6 devices, and optionally 7 demo events (when `SEED_DEMO_EVENTS=true`). Configured `prisma.seed` in backend package.json.
+
+**Decisions**:
+1. **Upsert semantics** — `prisma.farm.upsert` / `prisma.device.upsert` / `prisma.event.upsert` with empty `update: {}`. On re-run, the where-clause matches existing rows and no mutation occurs; idempotency is guaranteed.
+2. **`ts-node` as seed runner** — already present in devDependencies; no additional package needed.
+3. **`SEED_DEMO_EVENTS` env flag** — demo events are optional (the seed's primary job is farm + devices). The flag gates the 7 events from Instructions.md §13.
+
+**AI interactions**:
+- Tool: opencode agents (implementer/DeepSeek v4 Pro)
+- Objective: run the T-008 pipeline (plan → implement → review → PR)
+- Prompt (summary): execute plan.md literally — seed script with upserts, idempotency, optional demo events
+- Outcome: completed; Prisma 7 required driver adapter (@prisma/adapter-libsql + @libsql/client) and config in prisma.config.ts — deviations logged
+- Decision: accepted
+- Developer changes: (none)
