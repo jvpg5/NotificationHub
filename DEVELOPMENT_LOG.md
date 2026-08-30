@@ -362,3 +362,19 @@ Created `CreateEventDto` class with class-validator decorators enforcing V1, V4,
 - Outcome: (to be filled after review)
 - Decision: accepted
 - Developer changes: (none)
+
+### 2026-08-30 — T-015: Equipment Status Rule
+
+**What was done**: Created EquipmentStatusRule — a string-equality rule that triggers on EQUIPMENT_STATUS = FAILURE with CRITICAL severity and no farm name in the message template. Added 4 unit tests (trigger, OK, MAINTENANCE, byte-for-byte message match).
+
+**Decisions**:
+1. **String equality, not numeric comparison** — uses `=== 'FAILURE'`, consistent with the only non-threshold rule in the system.
+2. **Plain class, no @Injectable** — follows the T-014 pattern; T-016 will instantiate and register.
+
+**AI interactions**:
+- Tool: opencode agents (orchestrator/DeepSeek V4 Pro planned; implementer/DeepSeek V4 Flash executed; reviewer/DeepSeek V4 Pro reviewed)
+- Objective: implement the equipment status rule per T-015
+- Prompt (summary): execute plan.md literally — create rule class with string equality, add 4 tests, validate gates
+- Outcome: (to be filled after review)
+- Decision: accepted
+- Developer changes: none
