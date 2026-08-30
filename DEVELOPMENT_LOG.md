@@ -253,6 +253,23 @@ Record of the development process: key steps, decisions, and AI interactions (pe
 - Decision: accepted
 - Developer changes: (none)
 
+### 2026-08-30 — T-013: Rule Interface + RulesRegistry
+
+**What was done**: Created `apps/backend/src/rules/interfaces/rule.interface.ts` with `Rule` interface (id, eventType, evaluate(event): RuleResult) and `RuleResult` (triggered + optional notification payload with ruleTriggered, severity, message). Created `apps/backend/src/rules/rules.registry.ts` — injectable registry with token-based registration (Map keyed by rule.id) and `getRulesForType` returning empty array for unknown types. 4 unit tests cover registration, lookup, multiple rules, and type isolation.
+
+**Decisions**:
+1. **`RuleNotificationPayload` uses only rule-level fields** (ruleTriggered, severity, message) — event-level metadata (eventId, farmId, deviceId) is attached by the evaluation service (T-016), not duplicated in each rule.
+2. **`evaluate()` receives `CreateEventDto` from shared-types** — aligns the interface contract with the DTO all rules will consume; avoids defining a redundant event shape.
+3. **Registry uses `Map<string, Rule>` keyed by `rule.id`** — simple token-based dedup; `getRulesForType` filters by `eventType` rather than maintaining a second index (maps are small, 6 rules total).
+
+**AI interactions**:
+- Tool: opencode agents (orchestrator/DeepSeek v4 Pro planned; implementer/DeepSeek v4 Flash executed; reviewer/DeepSeek v4 Pro reviewed)
+- Objective: create Rule interface and RulesRegistry per T-013
+- Prompt (summary): execute plan.md literally — create rule interface, registry, 4 tests, validate gates
+- Outcome: (to be filled after review)
+- Decision: accepted
+- Developer changes: (none)
+
 ### 2026-08-30 — T-021: FarmModule
 
 **What was done**: Created FarmModule with read-only `GET /api/farm` endpoint returning seeded farm data (`id`, `name`, `producer`, `phone`). FarmService queries Prisma via `findFirst()`. Unit tests for controller (mocked FarmService) and service (mocked PrismaService).
