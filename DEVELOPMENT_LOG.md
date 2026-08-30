@@ -524,3 +524,28 @@ Created `CreateEventDto` class with class-validator decorators enforcing V1, V4,
 - Outcome: (to be filled after review)
 - Decision: accepted
 - Developer changes: (none)
+
+---
+
+## 2026-08-30 — T-020: Pipeline e2e Tests
+
+**What was done**: Created `apps/backend/test/pipeline.e2e-spec.ts` with 16 full-pipeline scenarios exercising real HTTP POST → rule evaluation → notification persistence → send lifecycle. Added a functional CJS mock for `@nestjs/event-emitter` (which is ESM-only, incompatible with Jest CJS) using Node's EventEmitter + NestJS ModuleRef. Installed supertest for HTTP assertions, created jest-e2e.json config, and added `test:e2e` script.
+
+**Decisions**:
+- Used `:memory:` SQLite via PrismaService override for test isolation (avoids `dev.db` contamination)
+- Created a functional event-emitter mock instead of the existing no-op mock because the pipeline requires actual event dispatching
+- The mock uses per-app emitters (each `forRoot()` call creates a unique module class) to prevent NestJS deduplication across app instances
+- S17 (failing provider) swaps the provider at runtime on the main app instead of creating a second TestingModule, due to NestJS module deduplication issues with `EventEmitterModule.forRoot()`
+- Migration SQL is split into individual statements because libsql adapter doesn't support multi-statement `$executeRawUnsafe`
+
+**Scenarios covered**: S1 (normal reading), S2-S7 (all 6 alert types → SENT), S8 (boundary values → no notification), S16 (duplicate idempotency), S17 (provider failure → FAILED + failureReason)
+
+**AI interactions**:
+- Tool: opencode agents (planner/DeepSeek V4 Pro planned; implementer/DeepSeek V4 Pro executed)
+- Objective: implement full pipeline e2e tests per T-020
+- Prompt (summary): execute plan.md literally — install supertest, create jest-e2e config, create pipeline.e2e-spec.ts with 16 scenarios, validate with lint/typecheck/e2e gates
+- Outcome: all 31 e2e tests pass (15 existing + 16 new), lint 0 errors, typecheck clean. PR #28 opened.
+- Decision: accepted with deviations (see below)
+- Developer changes: 
+  - Deviated from plan's S17 approach (separate TestingModule) to runtime provider swap due to NestJS module deduplication issues
+  - Added functional `event-emitter.mock.ts` (`moduleNameMapper` → custom mock) to bridge ESM-only `@nestjs/event-emitter` for CJS Jest
