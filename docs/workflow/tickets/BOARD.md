@@ -37,7 +37,7 @@
 | [T-001](tickets/EPIC-01-monorepo-foundation/T-001-monorepo-workspace.md) | Monorepo workspace + root configs | 2 | — | no | done |
 | [T-002](tickets/EPIC-01-monorepo-foundation/T-002-backend-scaffold.md) | Backend scaffold (NestJS) | 3 | T-001 | yes (vs T-003/T-004) | done |
 | [T-003](tickets/EPIC-01-monorepo-foundation/T-003-frontend-scaffold.md) | Frontend scaffold (Vite + React) | 3 | T-001 | yes (vs T-002/T-004) | done |
-| [T-004](tickets/EPIC-01-monorepo-foundation/T-004-shared-types-package.md) | `shared-types` package | 2 | T-001 | yes (vs T-002/T-003) | todo |
+| [T-004](tickets/EPIC-01-monorepo-foundation/T-004-shared-types-package.md) | `shared-types` package | 2 | T-001 | yes (vs T-002/T-003) | done |
 | [T-005](tickets/EPIC-01-monorepo-foundation/T-005-root-scripts-verification.md) | Root scripts + smoke verification | 2 | T-002, T-003, T-004 | no | todo |
 
 ## EPIC-02 — Data & Persistence
