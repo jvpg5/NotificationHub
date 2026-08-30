@@ -549,3 +549,23 @@ Created `CreateEventDto` class with class-validator decorators enforcing V1, V4,
 - Developer changes: 
   - Deviated from plan's S17 approach (separate TestingModule) to runtime provider swap due to NestJS module deduplication issues
   - Added functional `event-emitter.mock.ts` (`moduleNameMapper` → custom mock) to bridge ESM-only `@nestjs/event-emitter` for CJS Jest
+
+---
+
+## 2026-08-30 — T-029: Coverage Report + CI Workflow
+
+**What was done**: Added Jest coverage thresholds (backend: 75% statements / 70% branches), Vitest coverage via @vitest/coverage-v8 (frontend: 89.34% statements / 88.4% branches / 84.12% functions / 89.34% lines), `pnpm test:coverage` root script, and `.github/workflows/ci.yml` running lint → typecheck → test → coverage on every PR.
+
+**Decisions**:
+1. Backend coverage thresholds set to 75%/70% (below actual 77%/74%) — "adjust to reality" per ticket instructions, provides safety margin.
+2. Frontend thresholds set to 85/85/80/85 (rounded down from actual 89.34/88.4/84.12/89.34) — no pre-existing coverage config; thresholds match reality.
+3. CI uses pnpm's `--frozen-lockfile` for deterministic installs, matching standard practice.
+4. Used `@vitest/coverage-v8@^3` instead of latest (v4) to maintain compatibility with vitest v3.2.7.
+
+**AI interactions**:
+- Tool: opencode agents (orchestrator/DeepSeek V4 Pro planned; implementer/DeepSeek V4 Pro executed; reviewer reviewed)
+- Objective: add coverage + CI per T-029
+- Prompt (summary): execute plan.md literally — coverage configs, root script, CI workflow, validate gates
+- Outcome: (to be filled after review)
+- Decision: accepted
+- Developer changes: (none)
