@@ -569,3 +569,22 @@ Created `CreateEventDto` class with class-validator decorators enforcing V1, V4,
 - Outcome: (to be filled after review)
 - Decision: accepted
 - Developer changes: (none)
+
+---
+
+### 2026-08-30 — T-030: Test Hardening (Edge Cases + Components)
+
+**What was done**: Added missing tests to close coverage gaps: empty-DB edge case in events.service.spec.ts, component tests for EmptyState, ErrorState, and SkeletonCard. Documented S1–S18 scenario-to-test traceability table. Updated coverage thresholds to match achieved levels.
+
+**Decisions**:
+- Idempotency test was not added to events.service.spec.ts — idempotency is handled at the guard layer (IdempotencyGuard) before the service is called, and is already tested in `idempotency.guard.spec.ts` + e2e tests.
+- Thresholds bumped conservatively: floor to nearest multiple of 5 to avoid flaky CI.
+- SkeletonCard.test.tsx deviated from initial plan: the component uses `lines` as a binary check (`lines > 2`), not as a loop count, so tests were adjusted to match actual behavior (2 unconditional divs + 1 conditional).
+
+**AI interactions**:
+- Tool: Claude (OpenCode orchestrator)
+- Objective: Plan and orchestrate T-030 test hardening
+- Prompt (summary): Run the complete ticket pipeline for T-030
+- Outcome: Planner produced gap analysis and plan; implementer added 4 test cases; reviewer verified. All gates green.
+- Decision: Accepted — plan was mechanical and unambiguous.
+- Developer changes: None — PR ready for merge.
