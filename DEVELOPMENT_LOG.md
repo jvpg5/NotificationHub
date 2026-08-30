@@ -178,4 +178,21 @@ Record of the development process: key steps, decisions, and AI interactions (pe
 - Prompt (summary): execute plan.md literally — create pages, layout, wire router, add tests, validate gates
 - Outcome: (to be filled after review)
 - Decision: accepted
+---
+
+### 2026-08-30 — T-006: Prisma Schema + Initial Migration
+
+**What was done**: Installed Prisma v7.10.0 and @prisma/client v7.10.0 in `apps/backend`, created the full data model schema with 4 models (Farm, Device, Event, Notification) matching `docs/architecture/data-model.md`, created `prisma.config.ts` for Prisma 7+ datasource URL, wired `DATABASE_URL` from `apps/backend/.env`, and ran the initial migration via `prisma migrate dev --name init`.
+
+**Decisions**:
+1. **Prisma v7.10.0 pin (not latest)** — The latest tag resolved to v8.0.0-rc.12 which has a completely redesigned CLI (`prisma orm`, `prisma db push` instead of `migrate dev`). Pinned to `^7.0.0` which is the current stable line with the traditional `prisma generate`/`prisma validate`/`prisma migrate dev` commands.
+2. **`prisma.config.ts` for datasource URL** — Prisma 7+ removed `url` from the `datasource` block in `schema.prisma`. The connection URL now lives in `prisma.config.ts` using `defineConfig` + `env("DATABASE_URL")`.
+3. **Build script approval** — Added `pnpm.onlyBuiltDependencies` to root `package.json` for `prisma`, `@prisma/engines`, and `@prisma/client` so Prisma postinstall scripts run during `pnpm install`.
+
+**AI interactions**:
+- Tool: opencode agents (orchestrator/DeepSeek v4 Pro planned + executed; implementer/GLM blocked on Prisma v8)
+- Objective: create Prisma schema, initial migration per T-006
+- Prompt (summary): execute plan.md literally — install prisma deps, write schema from data-model.md, run generate/validate/migrate/dev
+- Outcome: implementer hit Prisma v8 CLI incompatibility blocker; orchestrator diagnosed, re-pinned to v7.10.0, added prisma.config.ts, completed all steps
+- Decision: accepted with plan correction (version pin + prisma.config.ts)
 - Developer changes: (none)
