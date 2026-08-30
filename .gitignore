@@ -1,1 +1,18 @@
+# Session / pipeline working files
 .tmp
+
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+
+# Test coverage
+coverage/
+
+# Environment (real values live in .env, never committed)
+.env
+
+# Local SQLite database (Prisma): **/ prefix so it matches apps/backend/prisma/dev.db
+**/prisma/dev.db
+**/prisma/dev.db-journal
