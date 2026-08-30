@@ -1,5 +1,7 @@
 # NotificationHub — Planejamento Inicial
 
+> **Status: histórico.** Este documento foi a base do planejamento inicial. A documentação canônica do projeto agora vive em [`docs/`](docs/README.md) — onde divergirem, `docs/` prevalece. O board de tickets está em [`docs/workflow/tickets/BOARD.md`](docs/workflow/tickets/BOARD.md).
+
 ## 1. Decisão Tecnológica
 
 ### Stack Escolhida
