@@ -7,6 +7,7 @@ import { NotFoundException } from '@nestjs/common';
 import { EventType } from 'shared-types';
 import { EventsController } from './events.controller';
 import { EventsService } from './events.service';
+import { IdempotencyGuard } from '../common/guards/idempotency.guard';
 
 describe('EventsController', () => {
   let controller: EventsController;
@@ -39,8 +40,13 @@ describe('EventsController', () => {
 
     const module: TestingModule = await Test.createTestingModule({
       controllers: [EventsController],
-      providers: [{ provide: EventsService, useValue: eventsService }],
-    }).compile();
+      providers: [
+        { provide: EventsService, useValue: eventsService },
+      ],
+    })
+      .overrideGuard(IdempotencyGuard)
+      .useValue({ canActivate: jest.fn().mockResolvedValue(true) })
+      .compile();
 
     controller = module.get<EventsController>(EventsController);
   });

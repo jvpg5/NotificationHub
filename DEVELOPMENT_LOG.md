@@ -362,3 +362,16 @@ Created `CreateEventDto` class with class-validator decorators enforcing V1, V4,
 - Outcome: (to be filled after review)
 - Decision: accepted
 - Developer changes: (none)
+
+## T-011: IdempotencyGuard — 2026-08-30
+- **Branch**: T-011-idempotency-guard
+- **Summary**: Added `IdempotencyGuard` that checks `eventId` existence via Prisma before `POST /api/events`. Duplicates return 200 + stored event + `duplicate: true` without re-processing.
+- **Files**:
+  - `apps/backend/src/common/guards/idempotency.guard.ts` — guard implementation (CanActivate)
+  - `apps/backend/src/common/guards/idempotency.guard.spec.ts` — 5 unit tests
+  - `apps/backend/src/events/events.controller.ts` — @UseGuards(IdempotencyGuard) on POST
+  - `apps/backend/src/events/events.module.ts` — IdempotencyGuard in providers
+  - `apps/backend/src/events/events.controller.spec.ts` — mock IdempotencyGuard via overrideGuard
+- **Gate results**: typecheck ✅, lint ✅ (0 errors), all 65 tests ✅ (12 suites)
+- **Deviation**: controller spec used `overrideGuard().useValue()` instead of provider `useValue` — NestJS resolves `@UseGuards()` guards through guard consumer, not the providers array.
+- **Satisfies**: SPEC-001 FR-5, business-rules.md §7, scenario S16
