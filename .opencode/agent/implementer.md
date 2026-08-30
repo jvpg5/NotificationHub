@@ -1,7 +1,6 @@
 ---
 description: Executes plan.md literally for a ticket - branch, code, gates, commits, PR. Strict executor contract, stops on ambiguity.
 mode: subagent
-model: opencode-go/deepseek-v4-flash
 permission:
   edit: allow
   bash:

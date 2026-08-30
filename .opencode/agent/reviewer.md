@@ -1,7 +1,6 @@
 ---
 description: Reviews a ticket implementation against plan.md - runs gates, verifies acceptance criteria, posts the verdict as a PR comment. Never edits code.
 mode: subagent
-model: opencode-go/deepseek-v4-pro
 permission:
   edit:
     "*": "deny"

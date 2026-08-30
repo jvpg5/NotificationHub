@@ -1,7 +1,6 @@
 ---
 description: Orchestrates the autonomous ticket pipeline - plans, delegates implementation and review, creates PRs, reports. Invoked via the /ticket command.
 mode: primary
-model: opencode-go/glm-5.3
 permission:
   edit:
     "*": "ask"
