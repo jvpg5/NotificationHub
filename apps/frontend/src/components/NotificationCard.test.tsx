@@ -101,4 +101,18 @@ describe('NotificationCard', () => {
     expect(badge.className).toContain('bg-status-pending/10');
     expect(badge.className).toContain('text-status-pending');
   });
+
+  it('shows sentAt when status is SENT', () => {
+    render(
+      <NotificationCard
+        notification={{
+          ...baseNotification,
+          status: NotificationStatus.SENT,
+          sentAt: '2026-08-30T10:06:00.000Z',
+        }}
+      />,
+    );
+
+    expect(screen.getByText(/Sent/)).toBeInTheDocument();
+  });
 });

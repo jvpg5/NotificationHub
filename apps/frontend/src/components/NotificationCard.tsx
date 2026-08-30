@@ -39,6 +39,11 @@ function NotificationCard({ notification }: NotificationCardProps) {
           {new Date(notification.createdAt).toLocaleString()}
         </span>
       </div>
+      {notification.sentAt && (
+        <div className="text-[11px] text-muted-foreground mt-1">
+          Sent {new Date(notification.sentAt).toLocaleString()}
+        </div>
+      )}
     </div>
   );
 }

@@ -287,6 +287,25 @@ Record of the development process: key steps, decisions, and AI interactions (pe
 - Decision: accepted
 - Developer changes: none
 
+### 2026-08-30 — T-026: Dashboard Page
+
+**What was done**: Built the Dashboard landing page with farm info, device list, latest events, and latest notifications. Installed Tailwind CSS + lucide-react as styling foundation. Implemented severity/status badges (CRITICAL/WARNING/INFO, SENT/FAILED/PENDING) following business rules. Added loading skeletons, empty states, and error states with auto-recovery via React Query polling.
+
+**Decisions**:
+- Used Tailwind CSS v3 with PostCSS rather than Tailwind v4 for stability
+- Used lucide-react for icons (lightweight, tree-shakeable)
+- Did not install shadcn/ui — components built with Tailwind utility classes matching the padrão-dashboard visual tokens
+- Polling interval of 5s is configured globally in QueryClient (existed from T-025)
+- Each section handles its own loading/error/empty states independently (no shared data-loading wrapper)
+
+**AI interactions**:
+- Tool: OpenCode (deepseek/deepseek-v4-pro)
+- Objective: Plan, implement, and review the dashboard page end-to-end
+- Prompt (summary): Execute T-026 pipeline — build dashboard with all components, tests, and styling
+- Outcome: Full dashboard page implemented with 11 new files, 0 regressions
+- Decision: Accepted
+- Developer changes: None
+
 ### 2026-08-30 — T-022: DevicesModule
 
 **What was done**: Created `DevicesModule` with `GET /api/devices` endpoint — returns all seeded devices (`id`, `farmId`, `type`, `label`) wrapped in `{ data: [...] }`. Single `prisma.device.findMany()` query. Module registered in `AppModule`.
