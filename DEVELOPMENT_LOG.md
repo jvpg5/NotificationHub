@@ -397,3 +397,20 @@ Created `CreateEventDto` class with class-validator decorators enforcing V1, V4,
 - Outcome: (to be filled after review)
 - Decision: accepted
 - Developer changes: none
+
+### 2026-08-30 — T-016: RulesService Listener
+
+**What was done**: Created RulesModule with RulesRegistry + all 6 rules registered, and RulesService as an `@OnEvent('event.received')` listener. The listener resolves the farm name, constructs a rule-compatible DTO from the Prisma Event, queries RulesRegistry for matching rules, evaluates each with FR-9 error containment, and emits `notification.generated` when triggered (at most one per event, FR-7).
+
+**Decisions**:
+1. **Rules are registered via factory + OnModuleInit** — rules are plain classes (not @Injectable), so a factory provider creates instances and OnModuleInit registers them. Adding @Injectable to each rule would be a separate concern better left for a refactor ticket.
+2. **PrismaService used directly for farm lookup** — PrismaService is @Global(), so no module import needed. FarmService.getFarm() exists but only returns the first farm; looking up by event.farmId is more correct.
+3. **Prisma Event → rule-input mapping** — for EQUIPMENT_STATUS, `event.textValue` is used as `value` (string), since the Prisma model stores text in a separate column. For sensor types, `event.value` (number) is used.
+
+**AI interactions**:
+- Tool: Claude (opencode)
+- Objective: plan T-016 implementation
+- Prompt (summary): plan the RulesService listener following the planner-implementer-workflow
+- Outcome: 5-file plan (rules.module, rules.service, rules.service.spec, app.module, DEVELOPMENT_LOG)
+- Decision: accepted — implementation delegated
+- Developer changes: none
