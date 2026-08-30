@@ -445,6 +445,24 @@ Created `CreateEventDto` class with class-validator decorators enforcing V1, V4,
 - Decision: accepted — implementation delegated
 - Developer changes: none
 
+### 2026-08-30 - T-012 — Events e2e Tests 
+
+- **What**: Supertest-based e2e tests for events API
+- **Why**: Exercise SPEC-001 AC-1 through AC-6 against a real SQLite DB
+- **How**:
+  - Added `supertest` + `@types/supertest` devDependencies
+  - Created `test/jest-e2e.json` config with 30s timeout
+  - Created `test/events.e2e-spec.ts`:
+    - Fresh SQLite test DB per run (migrated via `prisma db push` + seeded with farm + 6 devices)
+    - Global config mirrors main.ts (ValidationPipe, 'api' prefix)
+    - AC-1: Valid sensor event → 201 + persisted
+    - AC-2: Valid EQUIPMENT_STATUS → 201
+    - AC-3: S9–S15 invalid variants → 400 per-field errors, not persisted
+    - AC-4: Duplicate eventId → 200 + duplicate:true, no second persistence
+    - AC-5: List with type filter + pagination, timestamp desc
+    - AC-6: Unknown event id → 404
+  - Added `test:e2e` script to backend package.json
+- **Key decisions**: Used `prisma db push` for test DB setup; single farm + 6 devices seed mirrors production seed; all tests in one suite for isolation guarantees
 ### 2026-08-30 — T-017: NotificationProvider + MockWhatsAppProvider
 
 **What was done**: Created `NotificationProvider` interface (`send(payload) → SendResult`), `MockWhatsAppProvider` (logs recipient + message, returns success), `FailingWhatsAppProvider` (test fake returning failure), and `NotificationProvidersModule` exporting the provider under the `NOTIFICATION_PROVIDER` DI token. Wired into `AppModule`.
