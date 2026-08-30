@@ -1,0 +1,12 @@
+{
+  "moduleFileExtensions": ["js", "json", "ts"],
+  "rootDir": ".",
+  "testRegex": "test/.*\\.e2e-spec\\.ts$",
+  "transform": { "^.+\\.(t|j)s$": "ts-jest" },
+  "testEnvironment": "node",
+  "moduleNameMapper": {
+    "^shared-types$": "<rootDir>/../../packages/shared-types/src",
+    "^shared-types/(.*)$": "<rootDir>/../../packages/shared-types/src/$1",
+    "^@nestjs/event-emitter$": "<rootDir>/test/__mocks__/event-emitter.mock.ts"
+  }
+}
