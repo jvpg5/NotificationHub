@@ -588,3 +588,21 @@ Created `CreateEventDto` class with class-validator decorators enforcing V1, V4,
 - Outcome: Planner produced gap analysis and plan; implementer added 4 test cases; reviewer verified. All gates green.
 - Decision: Accepted — plan was mechanical and unambiguous.
 - Developer changes: None — PR ready for merge.
+
+## 2026-08-30 — T-031: README.md (Run/Test Instructions)
+
+**What was done**: Replaced the placeholder root README.md with complete setup, run, demo, and test instructions covering the Instructions.md §17 deliverable checklist.
+
+**Decisions**:
+- Architecture summary kept to one paragraph with link to `docs/architecture/overview.md` — keeps README lean.
+- Demo section uses curl commands for the 7 preset events — reproducible without the seed flag, works on a fresh setup.
+- Project structure section mirrors `docs/architecture/overview.md` layout — consistency.
+- Documentation links table points to all key docs — matches `docs/README.md` doc map.
+
+**AI interactions**:
+- Tool: Claude (OpenCode orchestrator + implementer)
+- Objective: Plan and execute T-031 README rewrite
+- Prompt (summary): Run the complete ticket pipeline for T-031
+- Outcome: Planner produced context and plan referencing Instructions.md §17 and docs/architecture/; implementer wrote README.md content and DEVELOPMENT_LOG entry. Reviewer verified.
+- Decision: Accepted — plan was mechanical and unambiguous.
+- Developer changes: None — PR ready for merge.
