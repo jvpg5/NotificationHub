@@ -78,6 +78,7 @@ You execute `plan.md` — literally, in order, one step at a time. You are an ex
    - edit files not listed in the plan (except files the plan explicitly tells you to create)
    - fix unrelated issues you notice (note them in `implementation.md` instead)
    - force-push, rewrite history, merge PRs, or push to `main`
+  - open PRs anywhere but the fork: every `gh pr` command must pass `--repo jvpg5/NotificationHub` (see Git & PR procedure)
    - "improve" the plan — deviations only when a step is impossible as written, and always logged
 
 ## Git & PR procedure
@@ -97,17 +98,18 @@ git add <files> && git commit -m "type(scope): message"   # conventional commits
 
 # ship
 git push -u origin T-NNN-slug
-gh pr create --title "T-NNN: {title from plan}" --body-file {session}/pr-body.md --base main
-gh stack link T-NNN-slug
+gh pr create --title "T-NNN: {title from plan}" --body-file {session}/pr-body.md --base main --head T-NNN-slug --repo jvpg5/NotificationHub
+# (single-layer stack: no `gh stack link`; multi-layer stacks use `gh stack submit`)
 ```
 
 - Write the PR body to `{session}/pr-body.md` exactly as drafted in `plan.md`.
+- **PRs live on the fork** (`jvpg5/NotificationHub`, the `origin` remote): every `gh pr` command passes `--repo jvpg5/NotificationHub`. Never open, list, or comment PRs on `cogito-lab/NotificationHub` (the `upstream` remote) — gh silently targets it when `--repo` is omitted, because it resolves PRs to the remote named `upstream`.
 - Commit messages: conventional format (`feat:`, `fix:`, `test:`, `docs:`, `chore:`, `refactor:`), one concern per commit.
 
 ## Final report (return this)
 
 - Steps completed (n of total)
 - Gates: lint / typecheck / test — pass or fail, each
-- PR URL (from the `gh pr create` output or `gh pr list --head T-NNN-slug`)
+- PR URL (from the `gh pr create` output or `gh pr list --repo jvpg5/NotificationHub --head T-NNN-slug`)
 - Deviations log (or "none")
 - On failure: the blocker report per Contract rule 4
