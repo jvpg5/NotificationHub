@@ -94,7 +94,7 @@
 
 | ID | Ticket | Pts | Depends on | Parallel-safe | Status |
 |---|---|---|---|---|---|
-| [T-026](tickets/EPIC-08-frontend-pages/T-026-dashboard-page.md) | Dashboard page | 5 | T-025, T-021, T-022 | no (integration) | todo |
+| [T-026](tickets/EPIC-08-frontend-pages/T-026-dashboard-page.md) | Dashboard page | 5 | T-025, T-021, T-022 | no (integration) | done |
 | [T-027](tickets/EPIC-08-frontend-pages/T-027-simulator-page.md) | Simulator page | 5 | T-025 | yes (vs T-026/T-028) | todo |
 | [T-028](tickets/EPIC-08-frontend-pages/T-028-history-page.md) | History page | 3 | T-025 | yes (vs T-026/T-027) | todo |
 
