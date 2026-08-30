@@ -496,12 +496,12 @@ export default defineConfig({
 ## 9. Plano de Implementação
 
 ### Fase 1 — Setup do Monorepo
-- [ ] Inicializar pnpm workspace
-- [ ] Configurar `tsconfig.base.json`
-- [ ] Scaffold NestJS em `apps/backend`
-- [ ] Scaffold Vite + React em `apps/frontend`
-- [ ] Configurar `packages/shared-types`
-- [ ] Verificar que ambos os servidores sobem
+- [x] Inicializar pnpm workspace
+- [x] Configurar `tsconfig.base.json`
+- [x] Scaffold NestJS em `apps/backend`
+- [x] Scaffold Vite + React em `apps/frontend`
+- [x] Configurar `packages/shared-types`
+- [x] Verificar que ambos os servidores sobem
 
 ### Fase 2 — Modelagem e Banco
 - [ ] Definir schema Prisma completo

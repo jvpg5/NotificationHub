@@ -147,3 +147,18 @@ Record of the development process: key steps, decisions, and AI interactions (pe
 - Outcome: (to be filled after review)
 - Decision: accepted
 - Developer changes: (none)
+
+### 2026-08-30 — T-005: Root Scripts + Smoke Verification
+
+**What was done**: Fixed the root `dev` script to run backend and frontend concurrently using `concurrently`. Smoke-verified that both apps boot (backend :3001, frontend :5173), the Vite proxy forwards `/api/health` to the backend, and all monorepo gates (`pnpm test`, `pnpm lint`, `pnpm typecheck`) pass across all workspaces. Marked all Fase 1 checkboxes as complete in PLANNING.md.
+
+**Decisions**:
+1. **`concurrently` for parallel dev servers** — `pnpm --filter` runs sequentially; `concurrently` starts both watchers at the same time, matching the ticket's explicit "concurrently" scope.
+
+**AI interactions**:
+- Tool: opencode agents (orchestrator/GLM planned; implementer/DeepSeek v4 Flash executed; reviewer/DeepSeek v4 Pro reviewed)
+- Objective: wire root scripts and smoke-verify the monorepo per T-005
+- Prompt (summary): execute plan.md literally — install concurrently, fix dev script, smoke test both servers + proxy, update PLANNING.md
+- Outcome: (to be filled after review)
+- Decision: accepted
+- Developer changes: (none)
