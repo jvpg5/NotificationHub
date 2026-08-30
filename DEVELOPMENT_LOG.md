@@ -109,3 +109,22 @@ Record of the development process: key steps, decisions, and AI interactions (pe
 - Outcome: (to be filled after review)
 - Decision: accepted
 - Developer changes: (none)
+
+### 2026-08-30 — T-003: Frontend Scaffold (Vite + React)
+
+**What was done**: Created `apps/frontend` — Vite ^6 + React ^19 SPA with dev proxy to backend (`/api` → `http://localhost:3001`), Vitest + React Testing Library configured, React Router installed, and a placeholder `App.tsx` rendering "NotificationHub". Passes lint, typecheck, test, and build gates.
+
+**Decisions**:
+1. **`tsc --noEmit` in build script** — per Vite best practices (typecheck before Rollup bundle).
+2. **Vitest `globals: false`** — explicit imports from `vitest` keep the test surface explicit and match the backend's Jest pattern (no magic globals).
+3. **React Router installed now** — routes wired in T-023; library present so later tickets don't need to touch `package.json`.
+4. **Flat ESLint config** — same pattern as `apps/backend/eslint.config.mjs` for consistency across the monorepo.
+5. **Scope separation via `tsconfig.node.json`** — keeps Node types out of the main `tsconfig.json` (src-only), preventing accidental Node API usage in browser code.
+
+**AI interactions**:
+- Tool: opencode agents (orchestrator/GLM planned; implementer/DeepSeek v4 Flash executed; reviewer/DeepSeek v4 Pro reviewed)
+- Objective: scaffold the frontend app per T-003 acceptance criteria
+- Prompt (summary): execute plan.md literally — create Vite + React project with proxy, test config, placeholder
+- Outcome: (to be filled after review)
+- Decision: accepted
+- Developer changes: (none)
