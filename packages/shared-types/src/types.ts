@@ -6,7 +6,7 @@ export interface CreateEventDto {
   deviceId: string;
   type: EventType;
   value: number | string;
-  unit: string;
+  unit: string | null;
   timestamp: string;
 }
 
@@ -17,7 +17,7 @@ export interface EventResponse {
   type: EventType;
   value: number | null;
   textValue: string | null;
-  unit: string;
+  unit: string | null;
   timestamp: string;
   receivedAt: string;
 }

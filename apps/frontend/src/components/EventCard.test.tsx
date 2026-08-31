@@ -39,7 +39,7 @@ describe('EventCard', () => {
       type: EventType.EQUIPMENT_STATUS,
       value: null,
       textValue: null,
-      unit: '',
+      unit: null,
     };
 
     render(<EventCard event={equipmentEvent} />);

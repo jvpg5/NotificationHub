@@ -71,9 +71,9 @@ const PRESETS: Array<{
 // Helpers
 // ---------------------------------------------------------------------------
 
-function getUnitForType(type: string): string {
+function getUnitForType(type: string): string | null {
   if (type === EventType.AIR_TEMPERATURE) return 'C';
-  if (type === EventType.EQUIPMENT_STATUS) return '';
+  if (type === EventType.EQUIPMENT_STATUS) return null;
   return '%';
 }
 
@@ -91,7 +91,7 @@ function getNowForDateTimeLocal(): string {
 }
 
 function toIsoTimestamp(dtLocal: string): string {
-  return `${dtLocal}:00.000Z`;
+  return `${dtLocal}:00Z`;
 }
 
 // ---------------------------------------------------------------------------

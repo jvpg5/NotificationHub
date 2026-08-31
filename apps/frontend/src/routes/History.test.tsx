@@ -72,7 +72,7 @@ const mockEvents = [
     type: 'EQUIPMENT_STATUS',
     value: null,
     textValue: 'FAILURE',
-    unit: '',
+    unit: null,
     timestamp: '2026-08-17T17:00:00.000-03:00',
     receivedAt: '2026-08-17T17:00:01.000-03:00',
   },
