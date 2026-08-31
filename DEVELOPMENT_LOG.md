@@ -715,7 +715,8 @@ Created `CreateEventDto` class with class-validator decorators enforcing V1, V4,
 
 #### Testing
 - 3 test layers: unit (Jest component tests), e2e (Supertest + SQLite in-memory), frontend (Vitest + React Testing Library)
-- Backend coverage: 75% statements / 70% branches; Frontend: 85%+ across all metrics
+- Backend coverage thresholds (CI): 75% statements / 70% branches; actual: 77.17% statements / 74.69% branches / 86.53% functions
+- Frontend coverage thresholds (CI): 85%+ across all metrics; actual: 90.02% statements / 88.53% branches
 - CI workflow runs lint → typecheck → test → coverage on every PR
 - 18 scenarios documented in S1–S18 traceability table (T-030)
 
@@ -726,7 +727,7 @@ Created `CreateEventDto` class with class-validator decorators enforcing V1, V4,
 - CI enforces coverage thresholds and gate checks on every PR
 
 ### Evidence
-- **318 tests** across backend (unit + e2e) and frontend (component + hook tests)
+- **201 tests** across backend (91 unit + 31 e2e) and frontend (79 component + hook tests)
 - **32 tickets** completed, each with a single squash-merged PR
 - All 6 notification rules covered by unit tests + pipeline e2e tests
 - Demo dataset: 7 events exercising all rules + normal reading

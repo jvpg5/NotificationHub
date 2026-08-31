@@ -100,7 +100,7 @@ You can also use the **Simulator** page in the frontend to send events interacti
 # All tests (backend + frontend)
 pnpm test
 
-# Coverage report (backend: 75%/70% thresholds, frontend: vitest coverage)
+# Coverage report (backend: 75%/70% CI thresholds — actual 77.17%/74.69%/86.53%; frontend: 85%+ CI thresholds — actual 90.02%/88.53%)
 pnpm test:coverage
 
 # Backend end-to-end tests (full pipeline)
