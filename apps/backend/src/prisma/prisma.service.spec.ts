@@ -11,6 +11,12 @@ jest.mock('@prisma/client', () => ({
   }),
 }));
 
+jest.mock('@prisma/adapter-libsql', () => ({
+  PrismaLibSql: jest.fn().mockImplementation(function () {
+    return {};
+  }),
+}));
+
 describe('PrismaService', () => {
   let service: PrismaService;
 

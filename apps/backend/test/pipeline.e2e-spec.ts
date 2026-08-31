@@ -79,7 +79,7 @@ async function createTestApp(options?: {
   notificationProvider?: any;
 }): Promise<{ app: INestApplication; prisma: PrismaService }> {
   const adapter = new PrismaLibSql({ url: 'file::memory:' });
-  const testPrisma = new PrismaService({ adapter });
+  const testPrisma = new PrismaService(adapter);
 
   // Run migration
   const statements = loadMigrationStatements();

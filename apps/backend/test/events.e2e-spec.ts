@@ -80,7 +80,7 @@ describe('Events e2e', () => {
       .useFactory({
         factory: () => {
           const adapter = new PrismaLibSql({ url: TEST_DB_URL });
-          return new PrismaService({ adapter });
+          return new PrismaService(adapter);
         },
       })
       .compile();
