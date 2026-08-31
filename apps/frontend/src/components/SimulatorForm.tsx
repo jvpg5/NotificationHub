@@ -77,7 +77,7 @@ function getUnitForType(type: string): string | null {
   return '%';
 }
 
-function getUnitDisplay(type: string): string {
+function getUnitDisplay(type: string): string | null {
   if (type === EventType.EQUIPMENT_STATUS) return 'none';
   return getUnitForType(type);
 }
